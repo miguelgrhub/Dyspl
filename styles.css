@@ -5,20 +5,13 @@
   padding: 0;
 }
 
-/* Para ocupar toda la ventana y poder centrar verticalmente */
-html, body {
-  height: 100%;
-}
-
-/* Fondo oscuro y centrado vertical/horizontal */
+/* Body con fondo oscuro y texto blanco inicialmente */
 body {
   background-color: #333;
   color: #fff;
   font-family: Arial, sans-serif;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  text-align: center;
+  padding: 20px; /* Espacio en los bordes */
 }
 
 /* Título principal */
@@ -30,14 +23,28 @@ h1 {
 
 /* Color naranja para la palabra "transfer" */
 .orange {
-  color: #f36;
+  color: #F17121;
+}
+
+/* Botón para volver, parte superior izquierda */
+.back-button {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background: none;
+  border: 2px solid #F17121;
+  color: #F17121;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
 }
 
 /* Contenedor para la barra de búsqueda e ícono */
 .search-container {
   position: relative;
-  width: 300px; /* Ajusta según prefieras */
-  margin-bottom: 15px;
+  width: 300px;
+  margin: 0 auto 15px auto; /* Centrar horizontalmente */
 }
 
 /* Campo de búsqueda */
@@ -63,22 +70,29 @@ h1 {
   cursor: pointer;
 }
 
-/* Mensaje o tarjeta de resultado */
+/* Instrucciones */
+.search-instructions {
+  margin: 0 auto;
+  max-width: 300px;
+  color: #ccc;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+/* Donde se muestra la tarjeta o el mensaje */
 #result {
   margin-top: 20px;
-  width: 100%;
-  display: flex;
-  justify-content: center;
 }
 
 /* Tarjeta contenedora */
 .transfer-card {
   background-color: #fff;      /* Fondo blanco */
   color: #333;                 /* Texto gris */
-  border-radius: 8px;          /* Esquinas redondeadas */
-  padding: 16px;               /* Espacio interior */
+  border-radius: 8px;
+  padding: 16px;
   width: 80%;
   max-width: 600px;
+  margin: 0 auto;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
@@ -90,18 +104,18 @@ h1 {
   text-align: center;
 }
 
-/* Estilo para la fila de encabezados */
+/* Encabezados en naranja */
 .transfer-header {
   font-weight: bold;
-  color: #f36; /* Naranja para títulos e íconos */
+  color: #F17121;
 }
 
-/* Estilo para la fila de valores */
+/* Valores en gris oscuro */
 .transfer-values {
   color: #666;
 }
 
-/* Cada celda en la fila */
+/* Cada celda */
 .transfer-cell {
   flex: 1;
   padding: 8px;
@@ -110,7 +124,7 @@ h1 {
 /* Línea divisoria naranja */
 .divider {
   height: 2px;
-  background-color: #f36;
+  background-color: #F17121;
   margin: 8px 0;
 }
 
