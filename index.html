@@ -1,18 +1,40 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dyspl - Búsqueda por ID</title>
-  <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <title>Find my transfer</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <h1>Búsqueda por ID</h1>
-  <input type="text" id="search-input" placeholder="Ingresa el ID (ej. 1B4313)">
-  <button id="search-button">Buscar</button>
-  
-  <div id="result"></div>
-  
-  <script src="script.js"></script>
+  <h1>Find my transfer</h1>
+
+  <div class="search-container">
+    <input
+      type="text"
+      class="search-input"
+      placeholder="Search"
+      aria-label="Search"
+    />
+    <button class="search-button" aria-label="Search button">
+      <!-- Ícono de lupa (SVG) -->
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        height="20"
+        width="20"
+        viewBox="0 0 24 24"
+        fill="#999"
+      >
+        <path
+          d="M9.5 3C13.6421 3 17 6.35786 17 10.5C17 12.2133 16.3962 13.7892 15.4144 15.0554L20.7071 20.3481C21.0976 20.7386 21.0976 21.3717 20.7071 21.7622C20.3166 22.1527 19.6834 22.1527 19.2929 21.7622L13.9993 16.4695C12.733 17.4513 11.1571 18.0551 9.44385 18.0551C5.30179 18.0551 2 14.7533 2 10.6112C2 6.46914 5.30179 3.16736 9.44385 3.16736L9.5 3ZM9.5 5C6.46243 5 4 7.46243 4 10.5C4 13.5376 6.46243 16 9.5 16C12.5376 16 15 13.5376 15 10.5C15 7.46243 12.5376 5 9.5 5Z"
+        />
+      </svg>
+    </button>
+  </div>
+
+  <p class="search-instructions">
+    *You can locate your transfer using your booking ID<br />
+    *If your transfer is scheduled for a date beyond today or tomorrow,
+    it won't appear in this search.
+  </p>
 </body>
 </html>
