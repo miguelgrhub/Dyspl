@@ -4,10 +4,12 @@
   <meta charset="UTF-8" />
   <title>Find my transfer</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <!-- Enlaza correctamente tu archivo CSS -->
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+  <!-- Botón para volver al estado inicial -->
+  <button id="back-button" class="back-button" style="display:none;">← Volver</button>
+
   <h1>Find my <span class="orange">transfer</span></h1>
 
   <div class="search-container">
@@ -34,16 +36,15 @@
     </button>
   </div>
 
-  <!-- Aquí se mostrará el resultado de la búsqueda -->
-  <div id="result"></div>
-
   <p class="search-instructions">
     *You can locate your transfer using your booking ID<br />
     *If your transfer is scheduled for a date beyond today or tomorrow,
     it won't appear in this search.
   </p>
-  
-  <!-- Script de la búsqueda -->
+
+  <!-- Aquí se mostrará la tarjeta o los mensajes de resultado -->
+  <div id="result"></div>
+
   <script src="script.js"></script>
 </body>
 </html>
