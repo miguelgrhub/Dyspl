@@ -30,7 +30,7 @@ h1 {
 
 /* Color naranja para la palabra "transfer" */
 .orange {
-  color: #f36; /* Ajusta si quieres otro tono de naranja */
+  color: #f36;
 }
 
 /* Contenedor para la barra de búsqueda e ícono */
@@ -43,7 +43,7 @@ h1 {
 /* Campo de búsqueda */
 .search-input {
   width: 100%;
-  padding: 12px 45px 12px 15px; /* Deja espacio para el ícono a la derecha */
+  padding: 12px 45px 12px 15px;
   border-radius: 25px;
   border: none;
   outline: none;
@@ -63,11 +63,58 @@ h1 {
   cursor: pointer;
 }
 
-/* Texto de instrucciones */
-.search-instructions {
-  font-size: 0.9rem;
+/* Mensaje o tarjeta de resultado */
+#result {
+  margin-top: 20px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+/* Tarjeta contenedora */
+.transfer-card {
+  background-color: #fff;      /* Fondo blanco */
+  color: #333;                 /* Texto gris */
+  border-radius: 8px;          /* Esquinas redondeadas */
+  padding: 16px;               /* Espacio interior */
+  width: 80%;
+  max-width: 600px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Filas dentro de la tarjeta */
+.transfer-row {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
   text-align: center;
-  line-height: 1.4;
-  color: #ccc;
-  max-width: 300px; /* Limita el ancho del texto */
+}
+
+/* Estilo para la fila de encabezados */
+.transfer-header {
+  font-weight: bold;
+  color: #f36; /* Naranja para títulos e íconos */
+}
+
+/* Estilo para la fila de valores */
+.transfer-values {
+  color: #666;
+}
+
+/* Cada celda en la fila */
+.transfer-cell {
+  flex: 1;
+  padding: 8px;
+}
+
+/* Línea divisoria naranja */
+.divider {
+  height: 2px;
+  background-color: #f36;
+  margin: 8px 0;
+}
+
+/* Ícono dentro del encabezado */
+.icon {
+  margin-right: 6px;
 }
