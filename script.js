@@ -3,7 +3,7 @@ document.getElementById('search-button').addEventListener('click', async () => {
   const resultDiv = document.getElementById('result');
 
   try {
-    // Cargamos el archivo data.json
+    // Cargamos el archivo data.json (asegúrate de que se llame data.json)
     const response = await fetch('data.json');
     const data = await response.json();
 
