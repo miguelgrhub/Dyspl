@@ -1,1 +1,71 @@
-
+{
+  "template": {
+    "type": "JSON",
+    "content": [
+      {
+        "flight_date": "10 mar",
+        "airline": "American airlines",
+        "flight_number": "ART387",
+        "transfer_pickup_time": "1:30 PM"
+      },
+      {
+        "flight_date": "11 mar",
+        "airline": "American airlines",
+        "flight_number": "LOOM4438",
+        "transfer_pickup_time": "1:45 PM"
+      },
+      {
+        "flight_date": "12 mar",
+        "airline": "Sunwing",
+        "flight_number": "QOPT5930",
+        "transfer_pickup_time": "2:00 PM"
+      },
+      {
+        "flight_date": "13 mar",
+        "airline": "Sunwing",
+        "flight_number": "7YH9Q",
+        "transfer_pickup_time": "2:15 PM"
+      },
+      {
+        "flight_date": "14 mar",
+        "airline": "Sunwing",
+        "flight_number": "9IK810",
+        "transfer_pickup_time": "2:30 PM"
+      },
+      {
+        "flight_date": "15 mar",
+        "airline": "Westjet",
+        "flight_number": "ARMNC1900",
+        "transfer_pickup_time": "3:00 PM"
+      },
+      {
+        "flight_date": "16 mar",
+        "airline": "Westjet",
+        "flight_number": "DHFI988",
+        "transfer_pickup_time": "3:10 PM"
+      },
+      {
+        "flight_date": "17 mar",
+        "airline": "American airlines",
+        "flight_number": "HCIS807",
+        "transfer_pickup_time": "3:30 PM"
+      },
+      {
+        "flight_date": "27 Feb",
+        "airline": "DL",
+        "flight_number": "NX1604",
+        "transfer_pickup_time": "04:04 PM"
+      },
+      {
+        "flight_date": "27 Feb",
+        "airline": "UA",
+        "flight_number": "NX1749",
+        "transfer_pickup_time": "05:49 PM"
+      }
+    ],
+    "source": {
+      "data_source": "Google Sheets (Private)",
+      "update_frequency": "Automated"
+    }
+  }
+}
