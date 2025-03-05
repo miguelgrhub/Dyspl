@@ -1,25 +1,39 @@
-/* Asigna un fondo oscuro y centra el contenido */
-body {
+/* Resetea márgenes y relleno por defecto */
+* {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: Arial, sans-serif;
-  background-color: #333; /* Ajusta según prefieras */
+}
+
+/* Para ocupar toda la ventana y poder centrar verticalmente */
+html, body {
+  height: 100%;
+}
+
+/* Fondo oscuro y centrado vertical/horizontal */
+body {
+  background-color: #333;
   color: #fff;
+  font-family: Arial, sans-serif;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh; /* Para centrar verticalmente */
 }
 
 /* Título principal */
 h1 {
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   font-size: 2rem;
   letter-spacing: 1px;
 }
 
-/* Contenedor del campo de búsqueda e ícono */
+/* Color naranja para la palabra "transfer" */
+.orange {
+  color: #f36; /* Ajusta si quieres otro tono de naranja */
+}
+
+/* Contenedor para la barra de búsqueda e ícono */
 .search-container {
   position: relative;
   width: 300px; /* Ajusta según prefieras */
@@ -29,16 +43,16 @@ h1 {
 /* Campo de búsqueda */
 .search-input {
   width: 100%;
-  padding: 12px 45px 12px 15px; /* Deja espacio a la derecha para el ícono */
+  padding: 12px 45px 12px 15px; /* Deja espacio para el ícono a la derecha */
   border-radius: 25px;
   border: none;
   outline: none;
   font-size: 1rem;
-  color: #333;          /* Color del texto dentro del input */
+  color: #333; /* Texto dentro del input */
   background-color: #fff;
 }
 
-/* Botón para el ícono de búsqueda */
+/* Botón con el ícono de la lupa */
 .search-button {
   position: absolute;
   top: 50%;
@@ -49,11 +63,11 @@ h1 {
   cursor: pointer;
 }
 
-/* Instrucciones debajo del campo de búsqueda */
+/* Texto de instrucciones */
 .search-instructions {
   font-size: 0.9rem;
   text-align: center;
   line-height: 1.4;
-  color: #ccc; /* Ajusta el tono de gris según prefieras */
+  color: #ccc;
   max-width: 300px; /* Limita el ancho del texto */
 }
