@@ -1,27 +1,59 @@
+/* Asigna un fondo oscuro y centra el contenido */
 body {
+  margin: 0;
+  padding: 0;
   font-family: Arial, sans-serif;
-  margin: 20px;
-  background-color: #f9f9f9;
+  background-color: #333; /* Ajusta según prefieras */
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh; /* Para centrar verticalmente */
 }
 
+/* Título principal */
 h1 {
-  color: #333;
+  margin-bottom: 30px;
+  font-size: 2rem;
+  letter-spacing: 1px;
 }
 
-#search-input {
-  padding: 8px;
-  width: 250px;
-  margin-right: 10px;
+/* Contenedor del campo de búsqueda e ícono */
+.search-container {
+  position: relative;
+  width: 300px; /* Ajusta según prefieras */
+  margin-bottom: 15px;
 }
 
-#search-button {
-  padding: 8px 16px;
-}
-
-#result {
-  margin-top: 20px;
+/* Campo de búsqueda */
+.search-input {
+  width: 100%;
+  padding: 12px 45px 12px 15px; /* Deja espacio a la derecha para el ícono */
+  border-radius: 25px;
+  border: none;
+  outline: none;
+  font-size: 1rem;
+  color: #333;          /* Color del texto dentro del input */
   background-color: #fff;
-  padding: 15px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
+}
+
+/* Botón para el ícono de búsqueda */
+.search-button {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* Instrucciones debajo del campo de búsqueda */
+.search-instructions {
+  font-size: 0.9rem;
+  text-align: center;
+  line-height: 1.4;
+  color: #ccc; /* Ajusta el tono de gris según prefieras */
+  max-width: 300px; /* Limita el ancho del texto */
 }
