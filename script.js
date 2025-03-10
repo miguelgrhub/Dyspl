@@ -3,6 +3,7 @@ const searchButton = document.getElementById('search-button');
 const backButton = document.getElementById('back-button');
 const instructions = document.querySelector('.search-instructions');
 const resultDiv = document.getElementById('result');
+const searchInput = document.getElementById('search-input');
 
 let inactivityTimer = null; // Variable global para el temporizador
 
@@ -13,7 +14,7 @@ searchButton.addEventListener('click', async () => {
     clearTimeout(inactivityTimer);
   }
 
-  const query = document.getElementById('search-input').value.trim().toLowerCase();
+  const query = searchInput.value.trim().toLowerCase();
 
   try {
     const response = await fetch('data.json');
@@ -83,12 +84,17 @@ backButton.addEventListener('click', () => {
     inactivityTimer = null;
   }
 
-  // Restaura el fondo oscuro y el texto blanco, y vuelve a mostrar las instrucciones
+  // Restaurar el fondo oscuro y texto blanco
   document.body.style.backgroundColor = '#333';
   document.body.style.color = '#fff';
+
+  // Volver a mostrar las instrucciones
   instructions.style.display = 'block';
 
-  // Limpia el resultado y oculta el botón de volver
+  // Limpiar el resultado y el campo de búsqueda
   resultDiv.innerHTML = '';
+  searchInput.value = '';
+
+  // Ocultar el botón de volver
   backButton.style.display = 'none';
 });
