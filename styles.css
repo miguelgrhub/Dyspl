@@ -175,14 +175,26 @@ footer {
   min-height: 50px;
 }
 
-/* Pequeño estilo para la tarjeta de resultado */
-.result-card {
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  padding: 10px;
-  display: inline-block;
+/* Tabla para el resultado de la búsqueda */
+.transfer-result-table {
+  margin: 10px auto;
+  border-collapse: collapse;
+  width: 90%;
+  max-width: 400px;
+}
+
+.transfer-result-table th,
+.transfer-result-table td {
+  padding: 12px;
   text-align: left;
-  background-color: #fefefe;
+  border-bottom: 1px solid #ccc;
+  font-size: 0.9rem;
+}
+
+.transfer-result-table th {
+  background-color: #f9f9f9;
+  color: #F17121; /* Mismo naranja */
+  font-weight: bold;
 }
 
 /* Ícono genérico */
