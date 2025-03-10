@@ -164,14 +164,27 @@ searchButton.addEventListener('click', () => {
   const record = records.find(item => item.id.toLowerCase() === query);
 
   if (record) {
+    // Muestra el resultado en formato de tabla
     searchResult.innerHTML = `
-      <div class="result-card">
-        <p><strong>Transfer found!</strong></p>
-        <p><strong>ID Transfer:</strong> ${record.id}</p>
-        <p><strong>No. Vuelo:</strong> ${record.flight_number}</p>
-        <p><strong>Aerolinea:</strong> ${record.airline}</p>
-        <p><strong>Horario Pick-Up:</strong> ${record.transfer_pickup_time}</p>
-      </div>
+      <p><strong>Transfer found!</strong></p>
+      <table class="transfer-result-table">
+        <thead>
+          <tr>
+            <th>ID Transfer</th>
+            <th>No. Vuelo</th>
+            <th>Aerolinea</th>
+            <th>Horario Pick-Up</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>${record.id}</td>
+            <td>${record.flight_number}</td>
+            <td>${record.airline}</td>
+            <td>${record.transfer_pickup_time}</td>
+          </tr>
+        </tbody>
+      </table>
     `;
 
     // Inicia el temporizador de 20s para volver al Home si no hay interacción
