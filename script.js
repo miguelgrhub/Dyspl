@@ -183,4 +183,3 @@ searchButton.addEventListener('click', () => {
     searchResult.innerHTML = `<p style="color:red;">No se encontró ningún registro con ese ID.</p>`;
   }
 });
-
