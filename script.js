@@ -4,8 +4,15 @@ const backButton = document.getElementById('back-button');
 const instructions = document.querySelector('.search-instructions');
 const resultDiv = document.getElementById('result');
 
+let inactivityTimer = null; // Variable global para el temporizador
+
 // Evento para el botón de búsqueda
 searchButton.addEventListener('click', async () => {
+  // Limpiar cualquier temporizador existente
+  if (inactivityTimer) {
+    clearTimeout(inactivityTimer);
+  }
+
   const query = document.getElementById('search-input').value.trim().toLowerCase();
 
   try {
@@ -47,16 +54,18 @@ searchButton.addEventListener('click', async () => {
         </div>
       `;
 
-      // Cambia el fondo a blanco, el texto a gris/negro
+      // Cambia el fondo a blanco y el texto a gris/negro
       document.body.style.backgroundColor = '#fff';
       document.body.style.color = '#333';
 
-      // Oculta las instrucciones
+      // Oculta las instrucciones y muestra el botón de volver
       instructions.style.display = 'none';
-
-      // Muestra el botón de volver
       backButton.style.display = 'block';
 
+      // Inicia un temporizador para volver al estado inicial después de 20 segundos de inactividad
+      inactivityTimer = setTimeout(() => {
+        backButton.click();
+      }, 20000);
     } else {
       resultDiv.innerHTML = 'No se encontró ningún registro con ese ID.';
     }
@@ -68,16 +77,18 @@ searchButton.addEventListener('click', async () => {
 
 // Evento para el botón de volver
 backButton.addEventListener('click', () => {
-  // Restaurar el fondo oscuro y texto blanco
+  // Limpia el temporizador si existe
+  if (inactivityTimer) {
+    clearTimeout(inactivityTimer);
+    inactivityTimer = null;
+  }
+
+  // Restaura el fondo oscuro y el texto blanco, y vuelve a mostrar las instrucciones
   document.body.style.backgroundColor = '#333';
   document.body.style.color = '#fff';
-
-  // Volver a mostrar las instrucciones
   instructions.style.display = 'block';
 
-  // Limpiar el resultado
+  // Limpia el resultado y oculta el botón de volver
   resultDiv.innerHTML = '';
-
-  // Ocultar el botón de volver
   backButton.style.display = 'none';
 });
