@@ -1,32 +1,132 @@
-/* Resetea márgenes y relleno por defecto */
+/* Reseteo básico */
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-}
-
-/* Body con fondo oscuro y texto blanco inicialmente */
-body {
-  background-color: #333;
-  color: #fff;
   font-family: Arial, sans-serif;
-  text-align: center;
-  padding: 20px; /* Espacio en los bordes */
 }
 
-/* Título principal */
+body {
+  background-color: #333; /* Fondo oscuro inicial */
+  color: #fff;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+/* Encabezado principal */
 h1 {
+  text-align: center;
   margin-bottom: 20px;
-  font-size: 2rem;
-  letter-spacing: 1px;
 }
 
-/* Color naranja para la palabra "transfer" */
-.orange {
+/* Estilos para el contenedor de la tabla */
+#table-container {
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.buttons-row {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+/* Botón naranja */
+.orange-btn {
+  background-color: #F17121;
+  color: #fff;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* Botón blanco */
+.white-btn {
+  background-color: #fff;
+  color: #333;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* Tabla */
+.table-wrapper {
+  overflow-x: auto; /* Por si en móvil no cabe */
+  background-color: #fff;
+  color: #333;
+  border-radius: 8px;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 500px; /* Para que no se compacte demasiado */
+}
+
+th {
+  background-color: #fff;
   color: #F17121;
+  font-weight: bold;
+  text-align: left;
+  padding: 8px;
+  border-bottom: 2px solid #F17121;
 }
 
-/* Botón para volver, parte superior izquierda */
+td {
+  padding: 8px;
+  border-bottom: 1px solid #ccc;
+}
+
+/* Paginación */
+.pagination-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.pagination-btn {
+  background-color: #F17121;
+  color: #fff;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#page-info {
+  font-size: 0.9rem;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  margin-top: 20px;
+}
+
+/* Contenedor del buscador */
+#search-container {
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* Botón de volver en el buscador */
 .back-button {
   position: absolute;
   top: 20px;
@@ -40,95 +140,54 @@ h1 {
   font-size: 0.9rem;
 }
 
-/* Contenedor para la barra de búsqueda e ícono */
-.search-container {
-  position: relative;
-  width: 300px;
-  margin: 0 auto 15px auto; /* Centrar horizontalmente */
-}
-
-/* Campo de búsqueda */
-.search-input {
-  width: 100%;
-  padding: 12px 45px 12px 15px;
-  border-radius: 25px;
-  border: none;
-  outline: none;
-  font-size: 1rem;
-  color: #333; /* Texto dentro del input */
-  background-color: #fff;
-}
-
-/* Botón con el ícono de la lupa */
-.search-button {
-  position: absolute;
-  top: 50%;
-  right: 10px;
-  transform: translateY(-50%);
-  background: none;
-  border: none;
-  cursor: pointer;
-}
-
-/* Instrucciones */
-.search-instructions {
-  margin: 0 auto;
-  max-width: 300px;
-  color: #ccc;
-  font-size: 0.9rem;
-  line-height: 1.4;
-}
-
-/* Donde se muestra la tarjeta o el mensaje */
-#result {
-  margin-top: 20px;
-}
-
-/* Tarjeta contenedora */
-.transfer-card {
-  background-color: #fff;      /* Fondo blanco */
-  color: #333;                 /* Texto gris */
-  border-radius: 8px;
-  padding: 16px;
-  width: 80%;
-  max-width: 600px;
-  margin: 0 auto;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-/* Filas dentro de la tarjeta */
-.transfer-row {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  text-align: center;
-}
-
-/* Encabezados en naranja */
-.transfer-header {
-  font-weight: bold;
+/* Título en el buscador: palabra "transfer" en naranja */
+.orange-text {
   color: #F17121;
 }
 
-/* Valores en gris oscuro */
-.transfer-values {
-  color: #666;
+/* Caja de búsqueda */
+.search-box {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 15px;
 }
 
-/* Cada celda */
-.transfer-cell {
-  flex: 1;
-  padding: 8px;
+#search-input {
+  padding: 10px;
+  border-radius: 4px;
+  border: none;
+  outline: none;
+  font-size: 1rem;
+  color: #333;
 }
 
-/* Línea divisoria naranja */
-.divider {
-  height: 2px;
+#search-button {
   background-color: #F17121;
-  margin: 8px 0;
+  color: #fff;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
 
-/* Ícono dentro del encabezado */
+.search-instructions {
+  font-size: 0.9rem;
+  color: #ccc;
+  line-height: 1.4;
+  margin-bottom: 20px;
+}
+
+#result {
+  color: #fff; /* Texto blanco por defecto en el body oscuro */
+  margin-top: 20px;
+}
+
+/* Íconos */
 .icon {
-  margin-right: 6px;
+  font-size: 1.1rem;
 }
