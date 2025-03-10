@@ -2,77 +2,51 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Airport Transfers</title>
+  <title>Transfers</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-
-  <!-- Pantalla inicial (tabla + botones) -->
-  <div id="table-container">
+  <!-- CONTENEDOR HOME: Tabla con todos los registros + Paginación -->
+  <div id="home-container" class="home-container">
     <h1>Today's pick-up airport transfer</h1>
 
-    <div class="buttons-row">
-      <button id="search-page-btn" class="orange-btn">
-        <span class="icon">🔍</span> Search for another transfer
+    <div class="top-buttons">
+      <button id="search-transfer-btn" class="btn-secondary">
+        <span class="icon">🔎</span> Search for another transfer
       </button>
-      <button id="adventure-btn" class="white-btn">
+      <button id="adventure-btn" class="btn-primary">
         <span class="icon">✈️</span> Find your next adventure
       </button>
     </div>
 
-    <!-- Tabla con los registros (paginación) -->
-    <div class="table-wrapper">
-      <table>
-        <thead>
-          <tr>
-            <th>ID Transfer</th>
-            <th>No. Vuelo</th>
-            <th>Aerolínea</th>
-            <th>Horario Pick-Up</th>
-          </tr>
-        </thead>
-        <tbody id="table-body">
-          <!-- Aquí se insertan las filas dinámicamente -->
-        </tbody>
-      </table>
-    </div>
-
-    <!-- Controles de paginación -->
-    <div class="pagination-controls">
-      <button id="prev-page-btn" class="pagination-btn">← Prev</button>
-      <span id="page-info"></span>
-      <button id="next-page-btn" class="pagination-btn">Next →</button>
+    <!-- Tabla de registros con paginación -->
+    <div id="table-container" class="table-container">
+      <!-- Aquí se inyecta la tabla y paginación vía JavaScript -->
     </div>
 
     <footer>
-      <img src="https://via.placeholder.com/120x40?text=nexustours.com" alt="nexustours.com" />
+      <p>nexustours.com</p>
     </footer>
   </div>
 
-  <!-- Pantalla del buscador (oculta inicialmente) -->
-  <div id="search-container" style="display: none;">
-    <button id="back-table-btn" class="back-button" style="display: none;">← Volver</button>
-    <h1>Find my <span class="orange-text">transfer</span></h1>
-
+  <!-- CONTENEDOR SEARCH: Búsqueda por ID -->
+  <div id="search-container" class="search-container">
+    <button id="back-home-btn" class="btn-back">← Back</button>
+    <h2>Find my transfer</h2>
     <div class="search-box">
       <input
         type="text"
         id="search-input"
-        placeholder="Ingresa tu ID de Transfer"
+        placeholder="Enter your ID (e.g. 1B4313)"
+        aria-label="Search by ID"
       />
-      <button id="search-button">
-        <span class="icon">🔎</span>
+      <button id="search-button" class="btn-search">
+        <span class="icon">🔍</span>
       </button>
     </div>
 
-    <p class="search-instructions">
-      *You can locate your transfer using your booking ID<br />
-      *If your transfer is scheduled for a date beyond today or tomorrow,
-      it won't appear in this search.
-    </p>
-
-    <div id="result"></div>
+    <div id="search-result" class="search-result"></div>
   </div>
 
   <script src="script.js"></script>
