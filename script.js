@@ -1,229 +1,186 @@
-/***********************
- * CONFIGURACIONES
- ***********************/
-const RECORDS_PER_PAGE = 5;    // Registros por página
-const INACTIVITY_TIMEOUT = 20000; // 20 segundos de inactividad en buscador
+// ==================== Variables globales ====================
+let records = [];        // Aquí guardamos todos los registros del JSON
+let currentPage = 1;     // Página actual en la tabla
+const itemsPerPage = 5;  // Cantidad de registros por página
 
-/***********************
- * ELEMENTOS DEL DOM
- ***********************/
-// Pantalla de tabla
-const tableContainer = document.getElementById('table-container');
-const tableBody = document.getElementById('table-body');
-const pageInfo = document.getElementById('page-info');
-const prevPageBtn = document.getElementById('prev-page-btn');
-const nextPageBtn = document.getElementById('next-page-btn');
+let inactivityTimer = null; // Temporizador de inactividad en la pantalla de búsqueda
 
-// Botones pantalla inicial
-const searchPageBtn = document.getElementById('search-page-btn');
-const adventureBtn = document.getElementById('adventure-btn');
-
-// Pantalla de búsqueda
+// Referencias a elementos del DOM
+const homeContainer = document.getElementById('home-container');
 const searchContainer = document.getElementById('search-container');
-const backTableBtn = document.getElementById('back-table-btn');
+const tableContainer = document.getElementById('table-container');
+const searchTransferBtn = document.getElementById('search-transfer-btn');
+const adventureBtn = document.getElementById('adventure-btn');
+const backHomeBtn = document.getElementById('back-home-btn');
 const searchInput = document.getElementById('search-input');
 const searchButton = document.getElementById('search-button');
-const resultDiv = document.getElementById('result');
-const searchInstructions = document.querySelector('.search-instructions');
+const searchResult = document.getElementById('search-result');
 
-/***********************
- * VARIABLES GLOBALES
- ***********************/
-let allRecords = [];      // Todos los registros del JSON
-let currentPage = 1;      // Página actual en la tabla
-let inactivityTimer = null; // Temporizador de inactividad en el buscador
-
-/***********************
- * FUNCIONES PRINCIPALES
- ***********************/
-
-// 1. Cargar datos del JSON y mostrar la tabla inicial
-async function loadAndDisplayTable() {
+// ==================== Inicio: Cargar data.json ====================
+window.addEventListener('DOMContentLoaded', async () => {
   try {
     const response = await fetch('data.json');
     const data = await response.json();
-    allRecords = data.template.content;
-
-    // Renderizar la tabla en la página 1
-    currentPage = 1;
-    renderTable();
+    records = data.template.content || [];
+    renderTable(); // Renderiza la tabla en Home
   } catch (error) {
     console.error('Error al cargar data.json:', error);
+    tableContainer.innerHTML = `<p style="color:red;text-align:center;">Error loading data.</p>`;
   }
-}
+});
 
-// 2. Renderizar tabla con paginación
+// ==================== Función: Renderizar tabla con paginación ====================
 function renderTable() {
-  // Limpiar cuerpo de la tabla
-  tableBody.innerHTML = '';
+  // Calcular índices de la página actual
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const pageRecords = records.slice(startIndex, endIndex);
 
-  // Calcular índice de inicio y fin
-  const startIndex = (currentPage - 1) * RECORDS_PER_PAGE;
-  const endIndex = startIndex + RECORDS_PER_PAGE;
-  const pageRecords = allRecords.slice(startIndex, endIndex);
+  // Construir tabla HTML
+  let tableHTML = `
+    <table>
+      <thead>
+        <tr>
+          <th>ID Transfer</th>
+          <th>No. Vuelo</th>
+          <th>Aerolinea</th>
+          <th>Horario Pick-Up</th>
+        </tr>
+      </thead>
+      <tbody>
+  `;
 
-  // Insertar filas
-  pageRecords.forEach((record) => {
-    const tr = document.createElement('tr');
-    tr.innerHTML = `
-      <td>${record.id}</td>
-      <td>${record.flight_number}</td>
-      <td>${record.airline}</td>
-      <td>${record.transfer_pickup_time}</td>
+  pageRecords.forEach(item => {
+    tableHTML += `
+      <tr>
+        <td>${item.id}</td>
+        <td>${item.flight_number}</td>
+        <td>${item.airline}</td>
+        <td>${item.transfer_pickup_time}</td>
+      </tr>
     `;
-    tableBody.appendChild(tr);
   });
 
-  // Actualizar info de paginación
-  const totalPages = Math.ceil(allRecords.length / RECORDS_PER_PAGE);
-  pageInfo.textContent = `Page ${currentPage} of ${totalPages}`;
+  tableHTML += `</tbody></table>`;
 
-  // Habilitar/Deshabilitar botones de paginación
-  prevPageBtn.disabled = (currentPage === 1);
-  nextPageBtn.disabled = (currentPage === totalPages);
-}
+  // Paginación
+  const totalPages = Math.ceil(records.length / itemsPerPage);
+  let paginationHTML = `
+    <div class="pagination">
+  `;
 
-// 3. Cambiar de página
-function goToPrevPage() {
   if (currentPage > 1) {
-    currentPage--;
-    renderTable();
+    paginationHTML += `<button id="prev-page">Prev</button>`;
   }
-}
 
-function goToNextPage() {
-  const totalPages = Math.ceil(allRecords.length / RECORDS_PER_PAGE);
+  paginationHTML += `<span>Page ${currentPage} of ${totalPages}</span>`;
+
   if (currentPage < totalPages) {
-    currentPage++;
-    renderTable();
+    paginationHTML += `<button id="next-page">Next</button>`;
+  }
+
+  paginationHTML += `</div>`;
+
+  // Mostrar en contenedor
+  tableContainer.innerHTML = tableHTML + paginationHTML;
+
+  // Eventos de paginación
+  if (currentPage > 1) {
+    document.getElementById('prev-page').addEventListener('click', () => {
+      currentPage--;
+      renderTable();
+    });
+  }
+  if (currentPage < totalPages) {
+    document.getElementById('next-page').addEventListener('click', () => {
+      currentPage++;
+      renderTable();
+    });
   }
 }
 
-// 4. Mostrar pantalla de buscador
-function showSearchContainer() {
-  // Mostrar buscador, ocultar tabla
-  tableContainer.style.display = 'none';
+// ==================== Navegar: Home → Search ====================
+searchTransferBtn.addEventListener('click', () => {
+  goToSearch();
+});
+
+// (Opcional) Botón “Find your next adventure”
+adventureBtn.addEventListener('click', () => {
+  alert('You clicked "Find your next adventure". Implement your logic here!');
+});
+
+// ==================== Navegar: Search → Home (botón Back) ====================
+backHomeBtn.addEventListener('click', () => {
+  goToHome();
+});
+
+// ==================== Ir a la pantalla de Búsqueda ====================
+function goToSearch() {
+  // Mostrar contenedor de búsqueda, ocultar Home
+  homeContainer.style.display = 'none';
   searchContainer.style.display = 'block';
 
-  // Botón de volver visible
-  backTableBtn.style.display = 'block';
-
-  // Limpiar resultado y campo
-  resultDiv.innerHTML = '';
+  // Limpiar resultados anteriores
+  searchResult.innerHTML = '';
   searchInput.value = '';
 
-  // Fondo oscuro, texto blanco
-  document.body.style.backgroundColor = '#333';
-  document.body.style.color = '#fff';
-
-  // Reiniciar temporizador de inactividad
-  resetInactivityTimer();
-}
-
-// 5. Regresar a pantalla de tabla (inicial)
-function showTableContainer() {
-  // Ocultar buscador, mostrar tabla
-  searchContainer.style.display = 'none';
-  tableContainer.style.display = 'block';
-
-  // Fondo oscuro, texto blanco
-  document.body.style.backgroundColor = '#333';
-  document.body.style.color = '#fff';
-
-  // Limpiar temporizador
-  clearInactivityTimer();
-}
-
-// 6. Temporizador de inactividad en buscador
-function resetInactivityTimer() {
-  clearInactivityTimer();
-  inactivityTimer = setTimeout(() => {
-    // Regresar a la tabla si pasa el tiempo sin interacción
-    showTableContainer();
-  }, INACTIVITY_TIMEOUT);
-}
-
-function clearInactivityTimer() {
+  // Limpiar si había un timer previo
   if (inactivityTimer) {
     clearTimeout(inactivityTimer);
     inactivityTimer = null;
   }
 }
 
-/***********************
- * EVENTOS
- ***********************/
+// ==================== Volver a la pantalla de Home ====================
+function goToHome() {
+  // Ocultar contenedor de búsqueda, mostrar Home
+  searchContainer.style.display = 'none';
+  homeContainer.style.display = 'block';
 
-// Paginación
-prevPageBtn.addEventListener('click', () => {
-  goToPrevPage();
-});
-nextPageBtn.addEventListener('click', () => {
-  goToNextPage();
-});
+  // Restaurar cualquier cosa necesaria
+  searchResult.innerHTML = '';
+  searchInput.value = '';
 
-// Ir a pantalla de búsqueda
-searchPageBtn.addEventListener('click', () => {
-  showSearchContainer();
-});
+  // Si había un temporizador, limpiarlo
+  if (inactivityTimer) {
+    clearTimeout(inactivityTimer);
+    inactivityTimer = null;
+  }
+}
 
-// Botón "Find your next adventure" (ejemplo)
-adventureBtn.addEventListener('click', () => {
-  alert('Here you can link to another page or show more info.');
-});
-
-// Botón "Volver" en buscador
-backTableBtn.addEventListener('click', () => {
-  showTableContainer();
-});
-
-// Evento de búsqueda
-searchButton.addEventListener('click', async () => {
-  // Cada vez que se haga clic, reseteamos el timer
-  resetInactivityTimer();
+// ==================== Búsqueda por ID en la pantalla Search ====================
+searchButton.addEventListener('click', () => {
+  // Limpiar timer anterior (si el usuario hace más de una búsqueda)
+  if (inactivityTimer) {
+    clearTimeout(inactivityTimer);
+  }
 
   const query = searchInput.value.trim().toLowerCase();
-  try {
-    const response = await fetch('data.json');
-    const data = await response.json();
-    const records = data.template.content;
+  if (!query) {
+    searchResult.innerHTML = `<p style="color:red;">Please enter an ID.</p>`;
+    return;
+  }
 
-    const record = records.find(item => item.id.toLowerCase() === query);
-    if (record) {
-      // Mostramos el resultado en modo "tarjeta"
-      document.body.style.backgroundColor = '#fff';
-      document.body.style.color = '#333';
+  const record = records.find(item => item.id.toLowerCase() === query);
 
-      searchInstructions.style.display = 'none';
+  if (record) {
+    searchResult.innerHTML = `
+      <div class="result-card">
+        <p><strong>Transfer found!</strong></p>
+        <p><strong>ID Transfer:</strong> ${record.id}</p>
+        <p><strong>No. Vuelo:</strong> ${record.flight_number}</p>
+        <p><strong>Aerolinea:</strong> ${record.airline}</p>
+        <p><strong>Horario Pick-Up:</strong> ${record.transfer_pickup_time}</p>
+      </div>
+    `;
 
-      resultDiv.innerHTML = `
-        <div style="background:#fff;color:#333;padding:10px;border-radius:8px;">
-          <h3 style="color:#F17121;margin-bottom:10px;">
-            Transfer found!
-          </h3>
-          <p><strong>ID Transfer:</strong> ${record.id}</p>
-          <p><strong>No. Vuelo:</strong> ${record.flight_number}</p>
-          <p><strong>Aerolínea:</strong> ${record.airline}</p>
-          <p><strong>Horario Pick-Up:</strong> ${record.transfer_pickup_time}</p>
-        </div>
-      `;
-    } else {
-      resultDiv.innerHTML = 'No se encontró ningún registro con ese ID.';
-    }
-  } catch (error) {
-    console.error('Error al cargar los datos:', error);
-    resultDiv.innerHTML = 'Error al cargar los datos.';
+    // Inicia el temporizador de 20s para volver al Home si no hay interacción
+    inactivityTimer = setTimeout(() => {
+      goToHome();
+    }, 20000);
+
+  } else {
+    searchResult.innerHTML = `<p style="color:red;">No se encontró ningún registro con ese ID.</p>`;
   }
 });
 
-// Detectar interacciones en buscador para resetear inactividad
-searchContainer.addEventListener('mousemove', resetInactivityTimer);
-searchContainer.addEventListener('keydown', resetInactivityTimer);
-searchContainer.addEventListener('click', resetInactivityTimer);
-
-/***********************
- * INICIO
- ***********************/
-
-// Al cargar la página, mostramos la tabla inicial
-loadAndDisplayTable();
