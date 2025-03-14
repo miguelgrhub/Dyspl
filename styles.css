@@ -8,7 +8,7 @@
 /* BODY GLOBAL */
 body {
   font-family: "DM Sans", sans-serif;
-  background-color: #f7f7f7; /* Fondo blanco */
+  background-color: #f7f7f7; /* Fondo claro */
   color: #333;
   min-height: 100vh;
   padding: 20px;
@@ -69,7 +69,7 @@ footer {
   border-radius: 20px;
   background: #FFF;
   margin: 0 auto;
-  max-width: 944px; /* Ajusta según tu diseño */
+  max-width: 944px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
@@ -194,7 +194,7 @@ footer {
 
 .transfer-result-table th {
   background-color: #f9f9f9;
-  color: #F17121; /* Mismo naranja */
+  color: #F17121;
   font-weight: bold;
 }
 
