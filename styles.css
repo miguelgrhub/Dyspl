@@ -21,10 +21,6 @@ body {
   margin-bottom: 20px;
   color: #333;
 }
-.hide
-{
-display:none;
-}
 
 /* Botones de la parte superior (Home) */
 .top-buttons {
@@ -199,3 +195,8 @@ footer {
 .icon {
   font-size: 1rem;
 }
+.hide
+{
+display:none;
+}
+
