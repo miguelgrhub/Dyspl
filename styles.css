@@ -58,18 +58,25 @@ footer {
   color: #999;
 }
 
-/* Tabla y paginación */
+/* Contenedor de la tabla con borde redondeado y fondo blanco */
 .table-container {
-  width: 100%;
-  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 26px;
+  padding: 20px;
+  border: 2px solid #D0DFDF;
+  border-radius: 20px;
+  background: #FFF;
   margin: 0 auto;
+  max-width: 944px; /* Ajusta según tu diseño */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
 /* Estilo de la tabla */
 .table-container table {
   width: 100%;
   border-collapse: collapse;
-  margin-bottom: 10px;
 }
 
 .table-container th,
@@ -86,26 +93,12 @@ footer {
   font-weight: bold;
 }
 
-/* Paginación */
-.pagination {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 20px;
-}
-
-.pagination button {
-  border: 1px solid #ccc;
-  background-color: #fff;
-  cursor: pointer;
-  padding: 5px 10px;
-  border-radius: 3px;
-}
-
-.pagination span {
-  font-size: 0.9rem;
+/* Indicador de página (auto) */
+.auto-page-info {
+  text-align: center;
+  width: 100%;
   color: #666;
+  font-size: 0.85rem;
 }
 
 /* CONTENEDOR HOME vs CONTENEDOR SEARCH */
