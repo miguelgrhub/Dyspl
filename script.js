@@ -1,5 +1,5 @@
 // ==================== Variables globales ====================
-let records = [];              // Aquí guardamos todos los registros del JSON
+let records = [];              // Aquí se guardan todos los registros del JSON
 let currentPage = 1;           // Página actual
 const itemsPerPage = 15;       // Ajusta cuántos registros mostrar por página
 let totalPages = 1;            // Se calculará al cargar
@@ -18,20 +18,17 @@ const searchInput = document.getElementById('search-input');
 const searchButton = document.getElementById('search-button');
 const searchResult = document.getElementById('search-result');
 
-// ==================== Inicio: Cargar data.json ====================
+// ==================== Cargar data.json ====================
 window.addEventListener('DOMContentLoaded', async () => {
   try {
     const response = await fetch('data.json');
     const data = await response.json();
     records = data.template.content || [];
     totalPages = Math.ceil(records.length / itemsPerPage);
-
     renderTable(); // Renderiza la tabla inicial
   } catch (error) {
     console.error('Error al cargar data.json:', error);
-    tableContainer.innerHTML = `
-      <p style="color:red;text-align:center;">Error loading data.</p>
-    `;
+    tableContainer.innerHTML = `<p style="color:red;text-align:center;">Error loading data.</p>`;
   }
 });
 
@@ -42,12 +39,12 @@ function renderTable() {
     clearInterval(autoPageInterval);
     autoPageInterval = null;
   }
-
+  
   // Calcular índices de la página actual
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   const pageRecords = records.slice(startIndex, endIndex);
-
+  
   // Construir tabla HTML con backticks
   let tableHTML = `
     <table>
@@ -61,7 +58,7 @@ function renderTable() {
       </thead>
       <tbody>
   `;
-
+  
   pageRecords.forEach(item => {
     tableHTML += `
       <tr>
@@ -72,22 +69,22 @@ function renderTable() {
       </tr>
     `;
   });
-
+  
   tableHTML += `
       </tbody>
     </table>
   `;
-
-  // Indicar la página actual
+  
+  // Información de la página actual (opcional)
   let pageInfoHTML = '';
   if (totalPages > 1) {
     pageInfoHTML = `<div class="auto-page-info">Page ${currentPage} of ${totalPages}</div>`;
   }
-
-  // Mostrar en contenedor
+  
+  // Mostrar en el contenedor
   tableContainer.innerHTML = tableHTML + pageInfoHTML;
-
-  // Si hay más de una página, iniciar el cambio automático cada 10s
+  
+  // Si hay más de una página, iniciar el auto-cambio cada 10s
   if (totalPages > 1) {
     startAutoPagination();
   }
@@ -98,10 +95,40 @@ function startAutoPagination() {
   autoPageInterval = setInterval(() => {
     currentPage++;
     if (currentPage > totalPages) {
-      currentPage = 1;
+      // Al llegar a la última página, se muestra el video
+      clearInterval(autoPageInterval);
+      autoPageInterval = null;
+      showVideo();
+      return;
     }
     renderTable();
-  }, 10000); // 10 segundos
+  }, 10000); // Cada 10 segundos
+}
+
+// ==================== Mostrar video desde YouTube ====================
+function showVideo() {
+  // Limpiar el contenedor de la tabla
+  tableContainer.innerHTML = '';
+  
+  // Crear el elemento iframe para YouTube
+  let iframe = document.createElement('iframe');
+  iframe.src = 'https://www.youtube.com/embed/U9gKV7tz2I8?autoplay=1&mute=1&controls=0&modestbranding=1';
+  iframe.width = '100%';
+  iframe.height = '400'; // Ajusta la altura según tu diseño
+  iframe.frameBorder = '0';
+  iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+  iframe.allowFullscreen = true;
+  
+  tableContainer.appendChild(iframe);
+  
+  // Configurar un temporizador de 5 minutos (300,000 ms)
+  let videoTimer = setTimeout(() => {
+    tableContainer.removeChild(iframe);
+    currentPage = 1;
+    renderTable();
+  }, 300000);
+  
+  // Nota: Para iframes de YouTube es complejo detectar el final sin la API; usamos el temporizador.
 }
 
 // ==================== Navegar: Home → Search ====================
@@ -121,68 +148,52 @@ backHomeBtn.addEventListener('click', () => {
 
 // ==================== Ir a la pantalla de Búsqueda ====================
 function goToSearch() {
-  // Ocultar Home
   homeContainer.style.display = 'none';
-  // Mostrar pantalla de búsqueda
   searchContainer.style.display = 'block';
-
-  // Limpiar resultados anteriores
   searchResult.innerHTML = '';
   searchInput.value = '';
-
-  // Limpiar auto-paginación (no queremos que siga cambiando páginas en Home)
+  
   if (autoPageInterval) {
     clearInterval(autoPageInterval);
     autoPageInterval = null;
   }
-
-  // Limpiar inactividad si hubiera
   if (inactivityTimer) {
     clearTimeout(inactivityTimer);
     inactivityTimer = null;
   }
 }
 
-// ==================== Volver a la pantalla de Home ====================
+// ==================== Volver a la pantalla Home ====================
 function goToHome() {
-  // Ocultar pantalla de búsqueda
   searchContainer.style.display = 'none';
-  // Mostrar Home
   homeContainer.style.display = 'block';
-
-  // Limpiar el resultado y el input
   searchResult.innerHTML = '';
   searchInput.value = '';
-
-  // Limpiar inactividad
+  
   if (inactivityTimer) {
     clearTimeout(inactivityTimer);
     inactivityTimer = null;
   }
-
-  // Volver a renderizar la tabla (reinicia la auto-paginación)
+  
+  currentPage = 1;
   renderTable();
 }
 
 // ==================== Búsqueda por ID en la pantalla Search ====================
 searchButton.addEventListener('click', () => {
-  // Limpiar timer anterior (si el usuario hace más de una búsqueda)
   if (inactivityTimer) {
     clearTimeout(inactivityTimer);
   }
-
+  
   const query = searchInput.value.trim().toLowerCase();
   if (!query) {
-    searchResult.innerHTML = `
-      <p style="color:red;">Please enter an ID.</p>
-    `;
+    searchResult.innerHTML = `<p style="color:red;">Please enter an ID.</p>`;
     return;
   }
-
+  
   const record = records.find(item => item.id.toLowerCase() === query);
-
+  
   if (record) {
-    // Muestra el resultado en formato de tabla
     searchResult.innerHTML = `
       <p><strong>Transfer found!</strong></p>
       <table class="transfer-result-table">
@@ -204,15 +215,11 @@ searchButton.addEventListener('click', () => {
         </tbody>
       </table>
     `;
-
-    // Inicia el temporizador de 20s para volver al Home si no hay interacción
+  
     inactivityTimer = setTimeout(() => {
       goToHome();
     }, 20000);
-
   } else {
-    searchResult.innerHTML = `
-      <p style="color:red;">No se encontró ningún registro con ese ID.</p>
-    `;
+    searchResult.innerHTML = `<p style="color:red;">No se encontró ningún registro con ese ID.</p>`;
   }
 });
