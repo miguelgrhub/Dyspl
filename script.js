@@ -1,7 +1,7 @@
 // ==================== Variables globales ====================
 let records = [];              // Aquí guardamos todos los registros del JSON
 let currentPage = 1;           // Página actual
-const itemsPerPage = 15;        // Ajusta cuántos registros mostrar por página
+const itemsPerPage = 15;       // Ajusta cuántos registros mostrar por página
 let totalPages = 1;            // Se calculará al cargar
 let autoPageInterval = null;   // Intervalo para auto-cambiar de página cada 10s
 
@@ -29,7 +29,9 @@ window.addEventListener('DOMContentLoaded', async () => {
     renderTable(); // Renderiza la tabla inicial
   } catch (error) {
     console.error('Error al cargar data.json:', error);
-    tableContainer.innerHTML = <p style="color:red;text-align:center;">Error loading data.</p>;
+    tableContainer.innerHTML = `
+      <p style="color:red;text-align:center;">Error loading data.</p>
+    `;
   }
 });
 
@@ -46,8 +48,8 @@ function renderTable() {
   const endIndex = startIndex + itemsPerPage;
   const pageRecords = records.slice(startIndex, endIndex);
 
-  // Construir tabla HTML
-  let tableHTML = 
+  // Construir tabla HTML con backticks
+  let tableHTML = `
     <table>
       <thead>
         <tr>
@@ -58,28 +60,28 @@ function renderTable() {
         </tr>
       </thead>
       <tbody>
-  ;
+  `;
 
   pageRecords.forEach(item => {
-    tableHTML += 
+    tableHTML += `
       <tr>
         <td>${item.id}</td>
         <td>${item.flight_number}</td>
         <td>${item.airline}</td>
         <td>${item.transfer_pickup_time}</td>
       </tr>
-    ;
+    `;
   });
 
-  tableHTML += 
+  tableHTML += `
       </tbody>
     </table>
-  ;
+  `;
 
   // Indicar la página actual
   let pageInfoHTML = '';
   if (totalPages > 1) {
-    pageInfoHTML = <div class="auto-page-info">Page ${currentPage} of ${totalPages}</div>;
+    pageInfoHTML = `<div class="auto-page-info">Page ${currentPage} of ${totalPages}</div>`;
   }
 
   // Mostrar en contenedor
@@ -171,7 +173,9 @@ searchButton.addEventListener('click', () => {
 
   const query = searchInput.value.trim().toLowerCase();
   if (!query) {
-    searchResult.innerHTML = <p style="color:red;">Please enter an ID.</p>;
+    searchResult.innerHTML = `
+      <p style="color:red;">Please enter an ID.</p>
+    `;
     return;
   }
 
@@ -179,7 +183,7 @@ searchButton.addEventListener('click', () => {
 
   if (record) {
     // Muestra el resultado en formato de tabla
-    searchResult.innerHTML = 
+    searchResult.innerHTML = `
       <p><strong>Transfer found!</strong></p>
       <table class="transfer-result-table">
         <thead>
@@ -199,7 +203,7 @@ searchButton.addEventListener('click', () => {
           </tr>
         </tbody>
       </table>
-    ;
+    `;
 
     // Inicia el temporizador de 20s para volver al Home si no hay interacción
     inactivityTimer = setTimeout(() => {
@@ -207,6 +211,8 @@ searchButton.addEventListener('click', () => {
     }, 20000);
 
   } else {
-    searchResult.innerHTML = <p style="color:red;">No se encontró ningún registro con ese ID.</p>;
+    searchResult.innerHTML = `
+      <p style="color:red;">No se encontró ningún registro con ese ID.</p>
+    `;
   }
 });
