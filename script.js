@@ -1,9 +1,11 @@
 // ==================== Variables globales ====================
-let records = [];        // Aquí guardamos todos los registros del JSON
-let currentPage = 1;     // Página actual en la tabla
-const itemsPerPage = 5;  // Cantidad de registros por página
+let records = [];              // Aquí guardamos todos los registros del JSON
+let currentPage = 1;           // Página actual
+const itemsPerPage = 6;        // Ajusta cuántos registros mostrar por página
+let totalPages = 1;            // Se calculará al cargar
+let autoPageInterval = null;   // Intervalo para auto-cambiar de página cada 10s
 
-let inactivityTimer = null; // Temporizador de inactividad en la pantalla de búsqueda
+let inactivityTimer = null;    // Temporizador de inactividad en la pantalla de búsqueda
 
 // Referencias a elementos del DOM
 const homeContainer = document.getElementById('home-container');
@@ -22,15 +24,23 @@ window.addEventListener('DOMContentLoaded', async () => {
     const response = await fetch('data.json');
     const data = await response.json();
     records = data.template.content || [];
-    renderTable(); // Renderiza la tabla en Home
+    totalPages = Math.ceil(records.length / itemsPerPage);
+
+    renderTable(); // Renderiza la tabla inicial
   } catch (error) {
     console.error('Error al cargar data.json:', error);
     tableContainer.innerHTML = `<p style="color:red;text-align:center;">Error loading data.</p>`;
   }
 });
 
-// ==================== Función: Renderizar tabla con paginación ====================
+// ==================== Renderizar tabla con paginación auto ====================
 function renderTable() {
+  // Limpiar cualquier intervalo previo
+  if (autoPageInterval) {
+    clearInterval(autoPageInterval);
+    autoPageInterval = null;
+  }
+
   // Calcular índices de la página actual
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
@@ -61,42 +71,35 @@ function renderTable() {
     `;
   });
 
-  tableHTML += `</tbody></table>`;
-
-  // Paginación
-  const totalPages = Math.ceil(records.length / itemsPerPage);
-  let paginationHTML = `
-    <div class="pagination">
+  tableHTML += `
+      </tbody>
+    </table>
   `;
 
-  if (currentPage > 1) {
-    paginationHTML += `<button id="prev-page">Prev</button>`;
+  // Indicar la página actual
+  let pageInfoHTML = '';
+  if (totalPages > 1) {
+    pageInfoHTML = `<div class="auto-page-info">Page ${currentPage} of ${totalPages}</div>`;
   }
-
-  paginationHTML += `<span>Page ${currentPage} of ${totalPages}</span>`;
-
-  if (currentPage < totalPages) {
-    paginationHTML += `<button id="next-page">Next</button>`;
-  }
-
-  paginationHTML += `</div>`;
 
   // Mostrar en contenedor
-  tableContainer.innerHTML = tableHTML + paginationHTML;
+  tableContainer.innerHTML = tableHTML + pageInfoHTML;
 
-  // Eventos de paginación
-  if (currentPage > 1) {
-    document.getElementById('prev-page').addEventListener('click', () => {
-      currentPage--;
-      renderTable();
-    });
+  // Si hay más de una página, iniciar el cambio automático cada 10s
+  if (totalPages > 1) {
+    startAutoPagination();
   }
-  if (currentPage < totalPages) {
-    document.getElementById('next-page').addEventListener('click', () => {
-      currentPage++;
-      renderTable();
-    });
-  }
+}
+
+// ==================== Auto-paginación cada 10 segundos ====================
+function startAutoPagination() {
+  autoPageInterval = setInterval(() => {
+    currentPage++;
+    if (currentPage > totalPages) {
+      currentPage = 1;
+    }
+    renderTable();
+  }, 10000); // 10 segundos
 }
 
 // ==================== Navegar: Home → Search ====================
@@ -116,15 +119,22 @@ backHomeBtn.addEventListener('click', () => {
 
 // ==================== Ir a la pantalla de Búsqueda ====================
 function goToSearch() {
-  // Mostrar contenedor de búsqueda, ocultar Home
+  // Ocultar Home
   homeContainer.style.display = 'none';
+  // Mostrar pantalla de búsqueda
   searchContainer.style.display = 'block';
 
   // Limpiar resultados anteriores
   searchResult.innerHTML = '';
   searchInput.value = '';
 
-  // Limpiar si había un timer previo
+  // Limpiar auto-paginación (no queremos que siga cambiando páginas en Home)
+  if (autoPageInterval) {
+    clearInterval(autoPageInterval);
+    autoPageInterval = null;
+  }
+
+  // Limpiar inactividad si hubiera
   if (inactivityTimer) {
     clearTimeout(inactivityTimer);
     inactivityTimer = null;
@@ -133,19 +143,23 @@ function goToSearch() {
 
 // ==================== Volver a la pantalla de Home ====================
 function goToHome() {
-  // Ocultar contenedor de búsqueda, mostrar Home
+  // Ocultar pantalla de búsqueda
   searchContainer.style.display = 'none';
+  // Mostrar Home
   homeContainer.style.display = 'block';
 
-  // Restaurar cualquier cosa necesaria
+  // Limpiar el resultado y el input
   searchResult.innerHTML = '';
   searchInput.value = '';
 
-  // Si había un temporizador, limpiarlo
+  // Limpiar inactividad
   if (inactivityTimer) {
     clearTimeout(inactivityTimer);
     inactivityTimer = null;
   }
+
+  // Volver a renderizar la tabla (reinicia la auto-paginación)
+  renderTable();
 }
 
 // ==================== Búsqueda por ID en la pantalla Search ====================
