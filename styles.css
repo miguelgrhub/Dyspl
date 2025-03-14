@@ -3,12 +3,13 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  
 }
 
 /* BODY GLOBAL */
 body {
   font-family: "DM Sans", sans-serif;
-  background-color: #f7f7f7; /* Fondo claro */
+  background-color: #f7f7f7; /* Fondo blanco */
   color: #333;
   min-height: 100vh;
   padding: 20px;
@@ -69,7 +70,7 @@ footer {
   border-radius: 20px;
   background: #FFF;
   margin: 0 auto;
-  max-width: 944px;
+  max-width: 944px; /* Ajusta según tu diseño */
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
@@ -129,7 +130,7 @@ footer {
 .search-container h2 {
   text-align: center;
   margin-bottom: 20px;
-  color: #F17121;
+  color: #F17121; /* Título en naranja */
 }
 
 /* Caja de búsqueda en pantalla SEARCH */
@@ -194,7 +195,7 @@ footer {
 
 .transfer-result-table th {
   background-color: #f9f9f9;
-  color: #F17121;
+  color: #F17121; /* Mismo naranja */
   font-weight: bold;
 }
 
@@ -202,7 +203,7 @@ footer {
 .icon {
   font-size: 1rem;
 }
-
-.hide {
-  display: none !important;
+.hide
+{
+display:none!important;
 }
