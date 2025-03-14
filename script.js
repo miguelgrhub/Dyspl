@@ -1,9 +1,9 @@
 // ==================== Variables globales ====================
-let records = [];              // Aquí se guardan todos los registros del JSON
+let records = [];              // Aquí guardamos todos los registros del JSON
 let currentPage = 1;           // Página actual
-const itemsPerPage = 15;       // Cantidad de registros por "página" (ajústalo según necesites)
-let totalPages = 1;            // Se calculará al cargar los registros
-let autoPageInterval = null;   // Intervalo para auto-cambiar de página cada 10 segundos
+const itemsPerPage = 15;        // Ajusta cuántos registros mostrar por página
+let totalPages = 1;            // Se calculará al cargar
+let autoPageInterval = null;   // Intervalo para auto-cambiar de página cada 10s
 
 let inactivityTimer = null;    // Temporizador de inactividad en la pantalla de búsqueda
 
@@ -18,23 +18,24 @@ const searchInput = document.getElementById('search-input');
 const searchButton = document.getElementById('search-button');
 const searchResult = document.getElementById('search-result');
 
-// ==================== Cargar data.json ====================
+// ==================== Inicio: Cargar data.json ====================
 window.addEventListener('DOMContentLoaded', async () => {
   try {
     const response = await fetch('data.json');
     const data = await response.json();
     records = data.template.content || [];
     totalPages = Math.ceil(records.length / itemsPerPage);
-    renderTable(); // Renderiza la tabla en la pantalla inicial
+
+    renderTable(); // Renderiza la tabla inicial
   } catch (error) {
     console.error('Error al cargar data.json:', error);
-    tableContainer.innerHTML = `<p style="color:red;text-align:center;">Error loading data.</p>`;
+    tableContainer.innerHTML = <p style="color:red;text-align:center;">Error loading data.</p>;
   }
 });
 
-// ==================== Renderizar tabla con auto-paginación ====================
+// ==================== Renderizar tabla con paginación auto ====================
 function renderTable() {
-  // Limpiar cualquier intervalo previo de auto-paginación
+  // Limpiar cualquier intervalo previo
   if (autoPageInterval) {
     clearInterval(autoPageInterval);
     autoPageInterval = null;
@@ -45,8 +46,8 @@ function renderTable() {
   const endIndex = startIndex + itemsPerPage;
   const pageRecords = records.slice(startIndex, endIndex);
 
-  // Construir el HTML de la tabla
-  let tableHTML = `
+  // Construir tabla HTML
+  let tableHTML = 
     <table>
       <thead>
         <tr>
@@ -57,34 +58,34 @@ function renderTable() {
         </tr>
       </thead>
       <tbody>
-  `;
+  ;
 
   pageRecords.forEach(item => {
-    tableHTML += `
+    tableHTML += 
       <tr>
         <td>${item.id}</td>
         <td>${item.flight_number}</td>
         <td>${item.airline}</td>
         <td>${item.transfer_pickup_time}</td>
       </tr>
-    `;
+    ;
   });
 
-  tableHTML += `
+  tableHTML += 
       </tbody>
     </table>
-  `;
+  ;
 
-  // Información de la página actual (opcional)
+  // Indicar la página actual
   let pageInfoHTML = '';
   if (totalPages > 1) {
-    pageInfoHTML = `<div class="auto-page-info">Page ${currentPage} of ${totalPages}</div>`;
+    pageInfoHTML = <div class="auto-page-info">Page ${currentPage} of ${totalPages}</div>;
   }
 
-  // Mostrar en el contenedor de la tabla
+  // Mostrar en contenedor
   tableContainer.innerHTML = tableHTML + pageInfoHTML;
 
-  // Si hay más de una página, iniciar el auto-cambio cada 10 segundos
+  // Si hay más de una página, iniciar el cambio automático cada 10s
   if (totalPages > 1) {
     startAutoPagination();
   }
@@ -95,46 +96,10 @@ function startAutoPagination() {
   autoPageInterval = setInterval(() => {
     currentPage++;
     if (currentPage > totalPages) {
-      // Al llegar a la última página, se muestra el video
-      clearInterval(autoPageInterval);
-      autoPageInterval = null;
-      showVideo();
-      return;
+      currentPage = 1;
     }
     renderTable();
-  }, 10000); // Cada 10 segundos
-}
-
-// ==================== Mostrar video al finalizar la paginación ====================
-function showVideo() {
-  // Limpiar el contenedor de la tabla
-  tableContainer.innerHTML = '';
-
-  // Crear el elemento de video
-  let video = document.createElement('video');
-  // Usar la URL directa de Google Drive (o el enlace que decidas)
-  video.src = 'https://drive.google.com/uc?export=download&id=1A0l3g_cScCYA9oJjgT2ThBcgPkAWn5AD';
-  video.autoplay = true;
-  video.controls = false;
-  video.style.width = '100%';
-  video.style.borderRadius = '20px';
-  tableContainer.appendChild(video);
-
-  // Temporizador de 5 minutos (300,000 ms)
-  let videoTimer = setTimeout(() => {
-    video.pause();
-    tableContainer.removeChild(video);
-    currentPage = 1;
-    renderTable();
-  }, 300000);
-
-  // Si el video termina antes, limpiar el temporizador y regresar al Home
-  video.addEventListener('ended', () => {
-    clearTimeout(videoTimer);
-    tableContainer.removeChild(video);
-    currentPage = 1;
-    renderTable();
-  });
+  }, 10000); // 10 segundos
 }
 
 // ==================== Navegar: Home → Search ====================
@@ -154,61 +119,67 @@ backHomeBtn.addEventListener('click', () => {
 
 // ==================== Ir a la pantalla de Búsqueda ====================
 function goToSearch() {
-  // Ocultar Home y detener auto-paginación
+  // Ocultar Home
   homeContainer.style.display = 'none';
+  // Mostrar pantalla de búsqueda
   searchContainer.style.display = 'block';
 
-  // Limpiar resultados e input
+  // Limpiar resultados anteriores
   searchResult.innerHTML = '';
   searchInput.value = '';
 
+  // Limpiar auto-paginación (no queremos que siga cambiando páginas en Home)
   if (autoPageInterval) {
     clearInterval(autoPageInterval);
     autoPageInterval = null;
   }
+
+  // Limpiar inactividad si hubiera
   if (inactivityTimer) {
     clearTimeout(inactivityTimer);
     inactivityTimer = null;
   }
 }
 
-// ==================== Volver a la pantalla Home ====================
+// ==================== Volver a la pantalla de Home ====================
 function goToHome() {
-  // Ocultar la pantalla de búsqueda y mostrar Home
+  // Ocultar pantalla de búsqueda
   searchContainer.style.display = 'none';
+  // Mostrar Home
   homeContainer.style.display = 'block';
 
-  // Limpiar input y resultados de búsqueda
+  // Limpiar el resultado y el input
   searchResult.innerHTML = '';
   searchInput.value = '';
 
+  // Limpiar inactividad
   if (inactivityTimer) {
     clearTimeout(inactivityTimer);
     inactivityTimer = null;
   }
 
-  // Reiniciar la tabla (esto reinicia la auto-paginación)
-  currentPage = 1;
+  // Volver a renderizar la tabla (reinicia la auto-paginación)
   renderTable();
 }
 
 // ==================== Búsqueda por ID en la pantalla Search ====================
 searchButton.addEventListener('click', () => {
+  // Limpiar timer anterior (si el usuario hace más de una búsqueda)
   if (inactivityTimer) {
     clearTimeout(inactivityTimer);
   }
 
   const query = searchInput.value.trim().toLowerCase();
   if (!query) {
-    searchResult.innerHTML = `<p style="color:red;">Please enter an ID.</p>`;
+    searchResult.innerHTML = <p style="color:red;">Please enter an ID.</p>;
     return;
   }
 
   const record = records.find(item => item.id.toLowerCase() === query);
 
   if (record) {
-    // Mostrar el resultado en formato de tabla
-    searchResult.innerHTML = `
+    // Muestra el resultado en formato de tabla
+    searchResult.innerHTML = 
       <p><strong>Transfer found!</strong></p>
       <table class="transfer-result-table">
         <thead>
@@ -228,13 +199,14 @@ searchButton.addEventListener('click', () => {
           </tr>
         </tbody>
       </table>
-    `;
+    ;
 
-    // Temporizador de 20 segundos para volver al Home si no hay interacción
+    // Inicia el temporizador de 20s para volver al Home si no hay interacción
     inactivityTimer = setTimeout(() => {
       goToHome();
     }, 20000);
+
   } else {
-    searchResult.innerHTML = `<p style="color:red;">No se encontró ningún registro con ese ID.</p>`;
+    searchResult.innerHTML = <p style="color:red;">No se encontró ningún registro con ese ID.</p>;
   }
 });
