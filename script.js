@@ -1,7 +1,7 @@
 // ==================== Variables globales ====================
 let records = [];              // Aquí guardamos todos los registros del JSON
 let currentPage = 1;           // Página actual
-const itemsPerPage = 11;        // Ajusta cuántos registros mostrar por página
+const itemsPerPage = 15;        // Ajusta cuántos registros mostrar por página
 let totalPages = 1;            // Se calculará al cargar
 let autoPageInterval = null;   // Intervalo para auto-cambiar de página cada 10s
 
