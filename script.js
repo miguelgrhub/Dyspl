@@ -1,7 +1,7 @@
 // ==================== Variables globales ====================
 let records = [];              // Aquí se guardan todos los registros del JSON
 let currentPage = 1;           // Página actual
-const itemsPerPage = 15;       // Ajusta cuántos registros mostrar por página
+const itemsPerPage = 15;       // Cantidad de registros por "página"
 let totalPages = 1;            // Se calculará al cargar
 let autoPageInterval = null;   // Intervalo para auto-cambiar de página cada 10s
 
@@ -45,7 +45,7 @@ function renderTable() {
   const endIndex = startIndex + itemsPerPage;
   const pageRecords = records.slice(startIndex, endIndex);
   
-  // Construir tabla HTML con backticks
+  // Construir tabla HTML usando backticks
   let tableHTML = `
     <table>
       <thead>
@@ -105,30 +105,43 @@ function startAutoPagination() {
   }, 10000); // Cada 10 segundos
 }
 
-// ==================== Mostrar video desde YouTube ====================
+// ==================== Mostrar video desde Cloudinary ====================
 function showVideo() {
   // Limpiar el contenedor de la tabla
   tableContainer.innerHTML = '';
   
-  // Crear el elemento iframe para YouTube
-  let iframe = document.createElement('iframe');
-  iframe.src = 'https://www.youtube.com/embed/U9gKV7tz2I8?autoplay=1&mute=1&controls=0&modestbranding=1';
-  iframe.width = '100%';
-  iframe.height = '400'; // Ajusta la altura según tu diseño
-  iframe.frameBorder = '0';
-  iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
-  iframe.allowFullscreen = true;
+  // Crear el elemento de video HTML5
+  let video = document.createElement('video');
+  video.src = 'https://res.cloudinary.com/dkfgnnym8/video/upload/v1741971837/Secuencia01_du1hsv.mp4';
+  video.autoplay = true;
+  video.muted = true;         // Para que el autoplay funcione
+  video.controls = false;     // Oculta controles para evitar pausa
+  video.playsInline = true;   // Para reproducirse bien en iOS
+  video.style.width = '100%';
+  video.style.borderRadius = '20px';
   
-  tableContainer.appendChild(iframe);
+  // Si el usuario intenta pausar, reanudar automáticamente
+  video.addEventListener('pause', () => {
+    video.play();
+  });
+  
+  tableContainer.appendChild(video);
   
   // Configurar un temporizador de 5 minutos (300,000 ms)
   let videoTimer = setTimeout(() => {
-    tableContainer.removeChild(iframe);
+    video.pause();
+    tableContainer.removeChild(video);
     currentPage = 1;
     renderTable();
   }, 300000);
   
-  // Nota: Para iframes de YouTube es complejo detectar el final sin la API; usamos el temporizador.
+  // Si el video termina antes, limpiar el temporizador y volver al Home
+  video.addEventListener('ended', () => {
+    clearTimeout(videoTimer);
+    tableContainer.removeChild(video);
+    currentPage = 1;
+    renderTable();
+  });
 }
 
 // ==================== Navegar: Home → Search ====================
