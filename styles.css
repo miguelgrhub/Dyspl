@@ -171,6 +171,11 @@ footer {
 
 /* Tabla para el resultado de la búsqueda */
 .transfer-result-table {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 26px;
+  padding: 15px;
   margin: 10px auto;
   border-collapse: collapse;
   width: 90%;
