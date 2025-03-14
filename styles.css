@@ -9,7 +9,7 @@
 /* BODY GLOBAL */
 body {
   font-family: "DM Sans", sans-serif;
-  background-color: #fff; /* Fondo blanco */
+  background-color: #f7f7f7; /* Fondo blanco */
   color: #333;
   min-height: 100vh;
   padding: 20px;
@@ -197,6 +197,6 @@ footer {
 }
 .hide
 {
-display:none;
+display:none!important;
 }
 
