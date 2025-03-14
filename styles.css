@@ -175,6 +175,8 @@ footer {
   border-collapse: collapse;
   width: 90%;
   max-width: 400px;
+  border: 2px solid #D0DFDF;
+  border-radius: 20px;
 }
 
 .transfer-result-table th,
