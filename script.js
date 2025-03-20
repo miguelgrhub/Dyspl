@@ -119,7 +119,7 @@ backHomeBtn.addEventListener('click', () => {
 });
 
 // ==================== Ir a la pantalla de Búsqueda ====================
-function goToSearch() {
+function goTo() {
   homeContainer.style.display = 'none';
   searchContainer.style.display = 'block';
   searchResult.innerHTML = '';
@@ -184,7 +184,7 @@ searchButton.addEventListener('click', () => {
   if (record) {
     searchResult.innerHTML = `
       <p><strong>We got you, here is your transfer</strong></p>
-      <table class="transfer-result-table">
+      <table>
         <thead>
           <tr>
             <th>ID Transfer</th>
