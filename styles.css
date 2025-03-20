@@ -52,7 +52,7 @@ body {
   cursor: pointer;
   padding: 10px 15px;
   border-radius: 5px;
-  font-size: 0.9rem;
+  font-size: 1.5rem;
   display: flex;
   align-items: center;
   gap: 5px;
@@ -79,7 +79,7 @@ footer {
 .table-container {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   gap: 26px;
   padding: 20px;
   border: 2px solid #D0DFDF;
@@ -235,7 +235,7 @@ footer {
 
 /* Ícono genérico */
 .icon {
-  font-size: 1rem;
+  font-size: 1.6rem;
 }
 
 .hide {
