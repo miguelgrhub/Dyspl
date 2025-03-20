@@ -95,7 +95,8 @@ function startAutoPagination() {
   autoPageInterval = setInterval(() => {
     currentPage++;
     if (currentPage > totalPages) {
-      // Volver a la primera página en lugar de mostrar video
+      // Al llegar a la última página, simplemente reiniciamos a la primera
+      // (Se quita el video por petición)
       currentPage = 1;
     }
     renderTable();
@@ -124,10 +125,12 @@ function goToSearch() {
   searchResult.innerHTML = '';
   searchInput.value = '';
   
+  // Detener la auto-paginación
   if (autoPageInterval) {
     clearInterval(autoPageInterval);
     autoPageInterval = null;
   }
+  // Detener inactividad
   if (inactivityTimer) {
     clearTimeout(inactivityTimer);
     inactivityTimer = null;
@@ -141,6 +144,7 @@ function goToHome() {
   searchResult.innerHTML = '';
   searchInput.value = '';
   
+  // Detener inactividad
   if (inactivityTimer) {
     clearTimeout(inactivityTimer);
     inactivityTimer = null;
@@ -152,6 +156,7 @@ function goToHome() {
 
 // ==================== Búsqueda por ID en la pantalla Search ====================
 searchButton.addEventListener('click', () => {
+  // Limpiar temporizador de inactividad previo
   if (inactivityTimer) {
     clearTimeout(inactivityTimer);
   }
@@ -187,11 +192,12 @@ searchButton.addEventListener('click', () => {
       </table>
     `;
   
+    // Temporizador de 20s para volver al Home si no hay interacción
     inactivityTimer = setTimeout(() => {
       goToHome();
     }, 20000);
   } else {
-    // Nuevo mensaje de error
+    // Texto personalizado al no encontrar el ID
     searchResult.innerHTML = `<p style="color:red;">Remember that your ID is in your reservation</p>`;
   }
 });
