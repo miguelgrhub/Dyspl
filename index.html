@@ -1,68 +1,106 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <title>Transfers</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <!-- Fuentes personalizadas -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css" />
+  <meta charset="UTF-8">
+  <title>Encuesta Pre-Estancia</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      max-width: 600px;
+    }
+    h1 {
+      margin-bottom: 1rem;
+    }
+    .form-group {
+      margin-bottom: 1rem;
+    }
+    label {
+      display: block;
+      font-weight: bold;
+      margin-top: 0.5rem;
+    }
+    input[type="text"],
+    input[type="number"],
+    textarea,
+    select {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      box-sizing: border-box;
+    }
+    .checkbox-group, .radio-group {
+      margin-top: 0.5rem;
+    }
+    .checkbox-group label,
+    .radio-group label {
+      display: inline-block;
+      margin-right: 1rem;
+      font-weight: normal;
+    }
+    .hidden {
+      display: none;
+    }
+  </style>
 </head>
 <body>
-  <!-- CONTENEDOR HOME: Tabla con todos los registros -->
-  <div id="home-container" class="home-container">
-    <div class="top-buttons">
-      <!-- Botón grande (ancho 944px, altura ~120px) -->
-      <button id="search-transfer-btn" class="btn-secondary big-home-button">
-        <span class="icon">🔎</span> Search for another transfer
-      </button>
-      <button id="adventure-btn" class="btn-primary hide">
-        <span class="icon">✈️</span> Find your next adventure
-      </button>
-    </div>
 
-    <!-- Título entre el botón y la tabla -->
-    <h2 id="main-title" class="main-title">Today’s pick-up airport transfers</h2>
+<h1>Encuesta Pre-Estancia</h1>
 
-    <!-- Aquí se inyecta la tabla y la paginación (auto) vía JavaScript -->
-    <div id="table-container" class="table-container"></div>
-
-    <footer>
-      <img src="https://miguelgrhub.github.io/Dyspl/Logo_nexus.png" alt="Logo Nexus">
-    </footer>
+<form id="encuestaForm" action="#" method="POST">
+  <!-- 1. Nombre(s) de sus acompañantes -->
+  <div class="form-group">
+    <label for="acompananteNombre">Nombre del acompañante</label>
+    <input type="text" id="acompananteNombre" name="acompananteNombre" placeholder="Ej. Juan Pérez">
+    
+    <label for="acompananteEdad">Edad</label>
+    <input type="number" id="acompananteEdad" name="acompananteEdad" placeholder="Ej. 30">
   </div>
 
-  <!-- CONTENEDOR SEARCH: Búsqueda por ID -->
-  <div id="search-container" class="search-container">
-    <button id="back-home-btn" class="btn-back">← Back</button>
-    <h2>Find my transfer</h2>
-
-    <div class="search-box">
-      <input
-        type="text"
-        id="search-input"
-        placeholder="Enter your ID (e.g. 1B4313)"
-        aria-label="Search by ID"
-      />
-      <!-- Botón de búsqueda tamaño normal -->
-      <button
-        id="search-button"
-        class="btn-search"
-      >
-        <span class="icon">🔍</span>
-      </button>
+  <!-- 2. Horario estimado de llegada -->
+  <div class="form-group">
+    <label>Horario estimado de llegada a la propiedad</label>
+    <div style="display: flex; gap: 0.5rem;">
+      <input type="number" min="1" max="12" name="horaLlegada" placeholder="Ej. 10" style="width: 60px;">
+      <select name="ampmLlegada">
+        <option value="AM">AM</option>
+        <option value="PM">PM</option>
+      </select>
     </div>
-
-    <!-- Texto centrado en gris debajo del botón (al inicio) -->
-    <p id="search-legend" class="search-legend">
-      If your transfer is scheduled for a date beyond today or tomorrow, it won't appear in this search.
-    </p>
-
-    <div id="search-result" class="search-result"></div>
   </div>
 
-  <script src="script.js"></script>
-</body>
-</html>
+  <!-- 3. Viajará con su mascota (checkbox) -->
+  <div class="form-group">
+    <label>
+      <input type="checkbox" id="checkMascota" name="viajaConMascota" value="sí">
+      ¿Viajará con su mascota?
+    </label>
+    <div id="infoMascota" class="hidden">
+      <label for="detallesMascota">¿Nos podría compartir su nombre, peso y raza?</label>
+      <textarea id="detallesMascota" name="detallesMascota" rows="2" placeholder="Ej. Rocky, 10kg, bulldog..."></textarea>
+    </div>
+  </div>
+
+  <!-- 4. ¿Cuál es su motivo de viaje? (selección múltiple con checkboxes) -->
+  <div class="form-group">
+    <label>¿Cuál es su motivo de viaje?</label>
+    <div class="checkbox-group">
+      <label><input type="checkbox" name="motivoViaje[]" value="Ocasión especial"> Ocasión especial</label>
+      <label><input type="checkbox" name="motivoViaje[]" value="Vacaciones"> Vacaciones</label>
+      <label><input type="checkbox" name="motivoViaje[]" value="Bienestar"> Bienestar</label>
+    </div>
+  </div>
+
+  <!-- 5. ¿De dónde nos visitan? -->
+  <div class="form-group">
+    <label for="origenVisita">¿De dónde nos visitan?</label>
+    <input type="text" id="origenVisita" name="origenVisita" placeholder="Ciudad/País">
+  </div>
+
+  <!-- 6. ¿Tiene alguna restricción alimenticia? (checkboxes) -->
+  <div class="form-group">
+    <label>¿Tiene alguna restricción alimenticia?</label>
+    <div class="checkbox-group">
+      <label><input type="checkbox" name="restriccionAlimenticia[]" value="No consumen gluten">No consumen gluten</label>
+      <label><input type="checkbox" name="restriccionAlimenticia[]" value="No consumen alcohol">No consumen alcohol</label>
+      <label><input type="checkbox" name="restriccionAlimenticia[]" value="Vegano">Veg
