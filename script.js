@@ -96,7 +96,7 @@ function startAutoPagination() {
   autoPageInterval = setInterval(() => {
     currentPage++;
     if (currentPage > totalPages) {
-      // Reiniciar a la primera página (sin video)
+      // Reiniciar a la primera página
       currentPage = 1;
     }
     renderTable();
@@ -178,6 +178,7 @@ searchButton.addEventListener('click', () => {
   const record = records.find(item => item.id.toLowerCase() === query);
   
   if (record) {
+    // Cambiamos “Transfer found!” por “We got you, here is your transfer”
     searchResult.innerHTML = `
       <p><strong>We got you, here is your transfer</strong></p>
       <table class="transfer-result-table">
