@@ -14,7 +14,7 @@
   <!-- CONTENEDOR HOME: Tabla con todos los registros -->
   <div id="home-container" class="home-container">
     <div class="top-buttons">
-      <!-- Botón grande (ancho 944px, altura ~120px) -->
+      <!-- Botón grande: 944px de ancho x 120px de alto -->
       <button id="search-transfer-btn" class="btn-secondary big-home-button">
         <span class="icon">🔎</span> Search for another transfer
       </button>
@@ -23,7 +23,7 @@
       </button>
     </div>
 
-    <!-- Título entre el botón y la tabla -->
+    <!-- Título en Home -->
     <h2 id="main-title" class="main-title">Today’s pick-up airport transfers</h2>
 
     <!-- Aquí se inyecta la tabla y la paginación (auto) vía JavaScript -->
@@ -46,16 +46,13 @@
         placeholder="Enter your ID (e.g. 1B4313)"
         aria-label="Search by ID"
       />
-      <!-- Botón de búsqueda tamaño normal -->
-      <button
-        id="search-button"
-        class="btn-search"
-      >
+      <!-- Botón de búsqueda de tamaño normal -->
+      <button id="search-button" class="btn-search">
         <span class="icon">🔍</span>
       </button>
     </div>
 
-    <!-- Texto centrado en gris debajo del botón (al inicio) -->
+    <!-- Leyenda debajo del botón (visible al inicio) -->
     <p id="search-legend" class="search-legend">
       If your transfer is scheduled for a date beyond today or tomorrow, it won't appear in this search.
     </p>
