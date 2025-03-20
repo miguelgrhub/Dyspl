@@ -148,17 +148,30 @@ footer {
   width: 220px;
 }
 
+/* Ajustes de tamaño para el botón de búsqueda */
 .btn-search {
   background-color: #F17121;
   color: #fff;
   border: none;
   cursor: pointer;
-  padding: 10px 14px;
+  /* Medidas solicitadas */
+  width: 993px;
+  height: 162px;
   border-radius: 4px;
   font-size: 0.9rem;
   display: flex;
   align-items: center;
   gap: 5px;
+}
+
+/* Leyenda debajo del botón de búsqueda */
+.search-legend {
+  margin-top: 10px;
+  font-size: 0.9rem;
+  color: #666;
+  text-align: center;
+  max-width: 600px;
+  margin: 10px auto 0 auto;
 }
 
 /* Resultado de la búsqueda */
