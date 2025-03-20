@@ -17,6 +17,8 @@ const backHomeBtn = document.getElementById('back-home-btn');
 const searchInput = document.getElementById('search-input');
 const searchButton = document.getElementById('search-button');
 const searchResult = document.getElementById('search-result');
+// Referencia al texto "If your transfer..."
+const searchLegend = document.getElementById('search-legend');
 
 // ==================== Cargar data.json ====================
 window.addEventListener('DOMContentLoaded', async () => {
@@ -45,7 +47,7 @@ function renderTable() {
   const endIndex = startIndex + itemsPerPage;
   const pageRecords = records.slice(startIndex, endIndex);
   
-  // Construir tabla HTML usando backticks
+  // Construir tabla HTML
   let tableHTML = `
     <table>
       <thead>
@@ -75,7 +77,7 @@ function renderTable() {
     </table>
   `;
   
-  // Información de la página actual (opcional)
+  // Información de la página actual
   let pageInfoHTML = '';
   if (totalPages > 1) {
     pageInfoHTML = `<div class="auto-page-info">Page ${currentPage} of ${totalPages}</div>`;
@@ -95,8 +97,7 @@ function startAutoPagination() {
   autoPageInterval = setInterval(() => {
     currentPage++;
     if (currentPage > totalPages) {
-      // Al llegar a la última página, simplemente reiniciamos a la primera
-      // (Se quita el video por petición)
+      // Reiniciar a la primera página (sin video)
       currentPage = 1;
     }
     renderTable();
@@ -124,7 +125,10 @@ function goToSearch() {
   searchContainer.style.display = 'block';
   searchResult.innerHTML = '';
   searchInput.value = '';
-  
+
+  // Mostrar la leyenda (en caso de que se haya ocultado antes)
+  searchLegend.style.display = 'block';
+
   // Detener la auto-paginación
   if (autoPageInterval) {
     clearInterval(autoPageInterval);
@@ -143,7 +147,7 @@ function goToHome() {
   homeContainer.style.display = 'block';
   searchResult.innerHTML = '';
   searchInput.value = '';
-  
+
   // Detener inactividad
   if (inactivityTimer) {
     clearTimeout(inactivityTimer);
@@ -160,10 +164,13 @@ searchButton.addEventListener('click', () => {
   if (inactivityTimer) {
     clearTimeout(inactivityTimer);
   }
-  
+
+  // Ocultar la leyenda cuando se hace clic en "Buscar"
+  searchLegend.style.display = 'none';
+
   const query = searchInput.value.trim().toLowerCase();
   if (!query) {
-    searchResult.innerHTML = `<p style="color:red;">Please enter an ID.</p>`;
+    searchResult.innerHTML = `<p class="error-text">Please enter an ID.</p>`;
     return;
   }
   
@@ -191,13 +198,13 @@ searchButton.addEventListener('click', () => {
         </tbody>
       </table>
     `;
-  
+    
     // Temporizador de 20s para volver al Home si no hay interacción
     inactivityTimer = setTimeout(() => {
       goToHome();
     }, 20000);
   } else {
-    // Texto personalizado al no encontrar el ID
-    searchResult.innerHTML = `<p style="color:red;">Remember that your ID is in your reservation</p>`;
+    // Texto de error en rojo
+    searchResult.innerHTML = `<p class="error-text">Remember that your ID is in your reservation</p>`;
   }
 });
