@@ -95,53 +95,11 @@ function startAutoPagination() {
   autoPageInterval = setInterval(() => {
     currentPage++;
     if (currentPage > totalPages) {
-      // Al llegar a la última página, se muestra el video
-      clearInterval(autoPageInterval);
-      autoPageInterval = null;
-      showVideo();
-      return;
+      // Volver a la primera página en lugar de mostrar video
+      currentPage = 1;
     }
     renderTable();
   }, 10000); // Cada 10 segundos
-}
-
-// ==================== Mostrar video desde Cloudinary ====================
-function showVideo() {
-  // Limpiar el contenedor de la tabla
-  tableContainer.innerHTML = '';
-  
-  // Crear el elemento de video HTML5
-  let video = document.createElement('video');
-  video.src = 'https://res.cloudinary.com/dkfgnnym8/video/upload/v1741971837/Secuencia01_du1hsv.mp4';
-  video.autoplay = true;
-  video.muted = true;         // Para que el autoplay funcione
-  video.controls = false;     // Oculta controles para evitar pausa
-  video.playsInline = true;   // Para reproducirse bien en iOS
-  video.style.width = '100%';
-  video.style.borderRadius = '20px';
-  
-  // Si el usuario intenta pausar, reanudar automáticamente
-  video.addEventListener('pause', () => {
-    video.play();
-  });
-  
-  tableContainer.appendChild(video);
-  
-  // Configurar un temporizador de 5 minutos (300,000 ms)
-  let videoTimer = setTimeout(() => {
-    video.pause();
-    tableContainer.removeChild(video);
-    currentPage = 1;
-    renderTable();
-  }, 300000);
-  
-  // Si el video termina antes, limpiar el temporizador y volver al Home
-  video.addEventListener('ended', () => {
-    clearTimeout(videoTimer);
-    tableContainer.removeChild(video);
-    currentPage = 1;
-    renderTable();
-  });
 }
 
 // ==================== Navegar: Home → Search ====================
@@ -233,6 +191,7 @@ searchButton.addEventListener('click', () => {
       goToHome();
     }, 20000);
   } else {
-    searchResult.innerHTML = `<p style="color:red;">No se encontró ningún registro con ese ID.</p>`;
+    // Nuevo mensaje de error
+    searchResult.innerHTML = `<p style="color:red;">Remember that your ID is in your reservation</p>`;
   }
 });
