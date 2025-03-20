@@ -30,6 +30,17 @@ body {
   margin-bottom: 20px;
 }
 
+/* Botón grande en la pantalla principal */
+.big-home-button {
+  width: 944px;   /* Mismo ancho que la tabla */
+  height: 100px;  /* ~Doble de altura normal */
+  font-size: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Botones base */
 .btn-primary,
 .btn-secondary {
   border: none;
@@ -150,14 +161,18 @@ footer {
   width: 220px;
 }
 
-/* Botón de búsqueda con tamaño de la tabla y el doble de altura */
-.big-search-button {
-  width: 944px;    /* Igual que la tabla */
-  height: 100px;   /* El doble de lo habitual (aprox) */
-  font-size: 1rem;
+/* Botón de búsqueda en la pantalla SEARCH (tamaño normal) */
+.btn-search {
+  background-color: #F17121;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  padding: 10px 14px;
+  border-radius: 4px;
+  font-size: 0.9rem;
   display: flex;
-  justify-content: center;
   align-items: center;
+  gap: 5px;
 }
 
 /* Texto centrado en gris debajo del botón */
