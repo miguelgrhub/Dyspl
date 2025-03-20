@@ -52,9 +52,9 @@ function renderTable() {
       <thead>
         <tr>
           <th>ID Transfer</th>
-          <th>Flight No.</th>
-          <th>Airlines</th>
-          <th>Pick-Up Time</th>
+          <th>No. Vuelo</th>
+          <th>Aerolinea</th>
+          <th>Horario Pick-Up</th>
         </tr>
       </thead>
       <tbody>
@@ -128,12 +128,11 @@ function goToSearch() {
   // Mostrar la leyenda al entrar
   searchLegend.style.display = 'block';
 
-  // Detener la auto-paginación
+  // Detener la auto-paginación y cualquier temporizador de inactividad
   if (autoPageInterval) {
     clearInterval(autoPageInterval);
     autoPageInterval = null;
   }
-  // Detener inactividad
   if (inactivityTimer) {
     clearTimeout(inactivityTimer);
     inactivityTimer = null;
@@ -163,13 +162,13 @@ searchButton.addEventListener('click', () => {
   if (inactivityTimer) {
     clearTimeout(inactivityTimer);
   }
-
+  
   // Ocultar la leyenda cuando se hace clic en "Buscar"
   searchLegend.style.display = 'none';
-
+  
   const query = searchInput.value.trim().toLowerCase();
-
-  // Si el ID está vacío, en lugar de mostrar un error, regresamos directamente al Home
+  
+  // Si el ID está vacío, regresar directamente al Home
   if (!query) {
     goToHome();
     return;
@@ -177,23 +176,21 @@ searchButton.addEventListener('click', () => {
   
   const record = records.find(item => item.id.toLowerCase() === query);
   
-  // En cualquier caso (ID encontrado o no), iniciamos un temporizador de 20s
-  // para volver al Home por inactividad.
+  // Iniciar temporizador de 20s para volver al Home en cualquier caso
   inactivityTimer = setTimeout(() => {
     goToHome();
   }, 20000);
-
+  
   if (record) {
-    // Cambiamos “Transfer found!” por “We got you, here is your transfer”
     searchResult.innerHTML = `
       <p><strong>We got you, here is your transfer</strong></p>
       <table class="transfer-result-table">
         <thead>
           <tr>
             <th>ID Transfer</th>
-            <th>Flight No.</th>
-            <th>Airlines</th>
-            <th>Pick-Up Time</th>
+            <th>No. Vuelo</th>
+            <th>Aerolinea</th>
+            <th>Horario Pick-Up</th>
           </tr>
         </thead>
         <tbody>
@@ -207,7 +204,14 @@ searchButton.addEventListener('click', () => {
       </table>
     `;
   } else {
-    // Texto de error en rojo
-    searchResult.innerHTML = `<p class="error-text">Remember that your ID is in your reservation</p>`;
+    searchResult.innerHTML = `
+      <p class="error-text">
+        If you have any questions about your pickup transfer time, please reach out to your Royalton Excursion Rep at the hospitality desk. You can also contact us easily via chat on the NexusTours App or by calling +52 998 251 6559<br>
+        We're here to assist you!
+      </p>
+      <div class="qr-container">
+        <img src="https://miguelgrhub.github.io/Dyspl/Qr.jpeg" alt="QR Code">
+      </div>
+    `;
   }
 });
