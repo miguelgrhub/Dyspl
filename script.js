@@ -17,7 +17,6 @@ const backHomeBtn = document.getElementById('back-home-btn');
 const searchInput = document.getElementById('search-input');
 const searchButton = document.getElementById('search-button');
 const searchResult = document.getElementById('search-result');
-// Referencia al texto "If your transfer..."
 const searchLegend = document.getElementById('search-legend');
 
 // ==================== Cargar data.json ====================
@@ -125,8 +124,8 @@ function goToSearch() {
   searchContainer.style.display = 'block';
   searchResult.innerHTML = '';
   searchInput.value = '';
-
-  // Mostrar la leyenda (en caso de que se haya ocultado antes)
+  
+  // Mostrar la leyenda al entrar
   searchLegend.style.display = 'block';
 
   // Detener la auto-paginación
@@ -147,7 +146,7 @@ function goToHome() {
   homeContainer.style.display = 'block';
   searchResult.innerHTML = '';
   searchInput.value = '';
-
+  
   // Detener inactividad
   if (inactivityTimer) {
     clearTimeout(inactivityTimer);
@@ -169,8 +168,10 @@ searchButton.addEventListener('click', () => {
   searchLegend.style.display = 'none';
 
   const query = searchInput.value.trim().toLowerCase();
+
+  // Si el ID está vacío, en lugar de mostrar un error, regresamos directamente al Home
   if (!query) {
-    searchResult.innerHTML = `<p class="error-text">Please enter an ID.</p>`;
+    goToHome();
     return;
   }
   
@@ -178,7 +179,7 @@ searchButton.addEventListener('click', () => {
   
   if (record) {
     searchResult.innerHTML = `
-      <p><strong>Transfer found!</strong></p>
+      <p><strong>We got you, here is your transfer</strong></p>
       <table class="transfer-result-table">
         <thead>
           <tr>
