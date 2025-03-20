@@ -195,7 +195,7 @@ footer {
 
 /* Texto de error en rojo */
 .error-text {
-  color: red;
+  color: black;
   font-weight: normal;
 }
 
