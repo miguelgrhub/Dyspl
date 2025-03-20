@@ -52,9 +52,9 @@ function renderTable() {
       <thead>
         <tr>
           <th>ID Transfer</th>
-          <th>No. Vuelo</th>
-          <th>Aerolinea</th>
-          <th>Horario Pick-Up</th>
+          <th>Flight No.</th>
+          <th>Airlines</th>
+          <th>Pick-Up Time</th>
         </tr>
       </thead>
       <tbody>
@@ -191,9 +191,9 @@ searchButton.addEventListener('click', () => {
         <thead>
           <tr>
             <th>ID Transfer</th>
-            <th>No. Vuelo</th>
-            <th>Aerolinea</th>
-            <th>Horario Pick-Up</th>
+            <th>Flight No.</th>
+            <th>Airlines</th>
+            <th>Pick-Up Time</th>
           </tr>
         </thead>
         <tbody>
