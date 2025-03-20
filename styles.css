@@ -148,30 +148,13 @@ footer {
   width: 220px;
 }
 
-/* Ajustes de tamaño para el botón de búsqueda */
-.btn-search {
-  background-color: #F17121;
-  color: #fff;
-  border: none;
-  cursor: pointer;
-  /* Medidas solicitadas */
-  width: 993px;
-  height: 162px;
-  border-radius: 4px;
-  font-size: 0.9rem;
-  display: flex;
+/* Botón de búsqueda con las medidas solicitadas */
+.big-search-button {
+  width: 993px; /* W=993 */
+  height: 162px; /* H=162 */
+  font-size: 1rem;
+  justify-content: center;  /* Para centrar el icono en el gran botón */
   align-items: center;
-  gap: 5px;
-}
-
-/* Leyenda debajo del botón de búsqueda */
-.search-legend {
-  margin-top: 10px;
-  font-size: 0.9rem;
-  color: #666;
-  text-align: center;
-  max-width: 600px;
-  margin: 10px auto 0 auto;
 }
 
 /* Resultado de la búsqueda */
@@ -179,6 +162,16 @@ footer {
   text-align: center;
   margin-top: 20px;
   min-height: 50px;
+}
+
+/* Leyenda debajo del botón de búsqueda */
+.search-legend {
+  font-size: 0.9rem;
+  color: #666;
+  text-align: center;
+  margin: 10px auto;
+  max-width: 500px;
+  line-height: 1.4;
 }
 
 /* Tabla para el resultado de la búsqueda */
@@ -202,20 +195,4 @@ footer {
   padding: 12px;
   text-align: left;
   border-bottom: 1px solid #ccc;
-  font-size: 0.9rem;
-}
-
-.transfer-result-table th {
-  background-color: #f9f9f9;
-  color: #F17121;
-  font-weight: bold;
-}
-
-/* Ícono genérico */
-.icon {
-  font-size: 1rem;
-}
-
-.hide {
-  display: none !important;
-}
+  font-size: 
