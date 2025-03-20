@@ -7,7 +7,7 @@
   <!-- Fuentes personalizadas -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -42,17 +42,17 @@
         placeholder="Enter your ID (e.g. 1B4313)"
         aria-label="Search by ID"
       />
-      <!-- Botón con las medidas solicitadas -->
+      <!-- Botón de búsqueda con tamaño normal -->
       <button
         id="search-button"
-        class="btn-search big-search-button"
+        class="btn-search"
       >
         <span class="icon">🔍</span>
       </button>
     </div>
 
-    <!-- Leyenda debajo del botón de búsqueda -->
-    <p class="search-legend">
+    <!-- Texto centrado en gris debajo del botón (al inicio) -->
+    <p id="search-legend" class="search-legend">
       If your transfer is scheduled for a date beyond today or tomorrow, it won't appear in this search.
     </p>
 
