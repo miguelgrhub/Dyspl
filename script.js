@@ -177,6 +177,12 @@ searchButton.addEventListener('click', () => {
   
   const record = records.find(item => item.id.toLowerCase() === query);
   
+  // En cualquier caso (ID encontrado o no), iniciamos un temporizador de 20s
+  // para volver al Home por inactividad.
+  inactivityTimer = setTimeout(() => {
+    goToHome();
+  }, 20000);
+
   if (record) {
     // Cambiamos “Transfer found!” por “We got you, here is your transfer”
     searchResult.innerHTML = `
@@ -200,11 +206,6 @@ searchButton.addEventListener('click', () => {
         </tbody>
       </table>
     `;
-    
-    // Temporizador de 20s para volver al Home si no hay interacción
-    inactivityTimer = setTimeout(() => {
-      goToHome();
-    }, 20000);
   } else {
     // Texto de error en rojo
     searchResult.innerHTML = `<p class="error-text">Remember that your ID is in your reservation</p>`;
