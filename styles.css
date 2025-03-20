@@ -33,11 +33,12 @@ body {
 /* Botón grande en la pantalla principal */
 .big-home-button {
   width: 944px;   /* Mismo ancho que la tabla */
-  height: 100px;  /* ~Doble de altura normal */
+  height: 120px;  /* Aún más alto */
   font-size: 1rem;
   display: flex;
   justify-content: center;
   align-items: center;
+  margin: 0 auto; /* Centrado horizontal */
 }
 
 /* Botones base */
