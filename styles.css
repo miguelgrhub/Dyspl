@@ -27,18 +27,22 @@ body {
   display: flex;
   justify-content: center;
   gap: 10px;
-  margin-bottom: 100px;
+  margin-bottom: 20px;
 }
 
 /* Botón grande en Home */
 .big-home-button {
-  width: 944px;   /* Ancho de la tabla */
+  width: 920px;   /* Un poco menos ancho que antes */
   height: 120px;  /* 120px de alto */
-  font-size: 1rem;
+  font-size: 1.5rem; /* Texto tamaño 1.5rem */
   display: flex;
   justify-content: center;
   align-items: center;
   margin: 0 auto; /* Centrado horizontal */
+}
+
+.big-home-button .icon {
+  font-size: 1.6rem; /* Ícono de 1.6rem */
 }
 
 /* Botones base */
@@ -48,7 +52,7 @@ body {
   cursor: pointer;
   padding: 10px 15px;
   border-radius: 5px;
-  font-size: 1.5rem;
+  font-size: 0.9rem;
   display: flex;
   align-items: center;
   gap: 5px;
@@ -162,7 +166,7 @@ footer {
   width: 220px;
 }
 
-/* Botón de búsqueda normal */
+/* Botón de búsqueda en SEARCH (normal) */
 .btn-search {
   background-color: #F17121;
   color: #fff;
@@ -176,7 +180,7 @@ footer {
   gap: 5px;
 }
 
-/* Leyenda de búsqueda */
+/* Leyenda debajo del botón */
 .search-legend {
   font-size: 0.9rem;
   color: #666;
@@ -193,9 +197,9 @@ footer {
   min-height: 50px;
 }
 
-/* Texto de error en rojo */
+/* Texto de error en negro */
 .error-text {
-  color: black;
+  color: #000;
   font-weight: normal;
 }
 
@@ -208,8 +212,8 @@ footer {
   padding: 6px;
   margin: 10px auto;
   border-collapse: collapse;
-  width: 90%;
-  max-width: 400px;
+  width: 100%;
+  max-width: 944px;
   border: 2px solid #D0DFDF;
   border-radius: 20px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
@@ -231,7 +235,7 @@ footer {
 
 /* Ícono genérico */
 .icon {
-  font-size: 1.6rem;
+  font-size: 1rem;
 }
 
 .hide {
@@ -241,11 +245,10 @@ footer {
 /* QR container para error */
 .qr-container {
   text-align: center;
-  margin-top: 10px;
+  margin-top: 20px; /* Más separación del texto */
 }
 
 .qr-container img {
-  padding-top: 20px;
   max-width: 400px;
   width: 100%;
   height: auto;
