@@ -110,6 +110,7 @@ footer {
   max-width: 600px;
   margin: 0 auto;
   position: relative;
+  text-align: center; /* Centrar contenido */
 }
 
 .btn-back {
@@ -134,10 +135,10 @@ footer {
 
 /* Caja de búsqueda en pantalla SEARCH */
 .search-box {
-  display: flex;
+  display: inline-flex;
   justify-content: center;
   gap: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 .search-box input {
@@ -148,13 +149,27 @@ footer {
   width: 220px;
 }
 
-/* Botón de búsqueda con las medidas solicitadas */
-.big-search-button {
-  width: 993px; /* W=993 */
-  height: 162px; /* H=162 */
-  font-size: 1rem;
-  justify-content: center;  /* Para centrar el icono en el gran botón */
+.btn-search {
+  background-color: #F17121;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  padding: 10px 14px;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  display: flex;
   align-items: center;
+  gap: 5px;
+}
+
+/* Texto centrado en gris debajo del botón */
+.search-legend {
+  font-size: 0.9rem;
+  color: #666;
+  text-align: center;
+  max-width: 500px;
+  margin: 10px auto;
+  line-height: 1.4;
 }
 
 /* Resultado de la búsqueda */
@@ -164,14 +179,10 @@ footer {
   min-height: 50px;
 }
 
-/* Leyenda debajo del botón de búsqueda */
-.search-legend {
-  font-size: 0.9rem;
-  color: #666;
-  text-align: center;
-  margin: 10px auto;
-  max-width: 500px;
-  line-height: 1.4;
+/* Texto de error en rojo */
+.error-text {
+  color: red;
+  font-weight: normal;
 }
 
 /* Tabla para el resultado de la búsqueda */
@@ -195,4 +206,20 @@ footer {
   padding: 12px;
   text-align: left;
   border-bottom: 1px solid #ccc;
-  font-size: 
+  font-size: 0.9rem;
+}
+
+.transfer-result-table th {
+  background-color: #f9f9f9;
+  color: #F17121;
+  font-weight: bold;
+}
+
+/* Ícono genérico */
+.icon {
+  font-size: 1rem;
+}
+
+.hide {
+  display: none !important;
+}
