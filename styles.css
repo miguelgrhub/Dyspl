@@ -15,7 +15,8 @@ body {
 }
 
 /* ENCABEZADO HOME */
-.home-container h1 {
+.home-container h1,
+.main-title {
   text-align: center;
   margin-bottom: 20px;
   color: #333;
@@ -69,7 +70,7 @@ footer {
   border-radius: 20px;
   background: #FFF;
   margin: 0 auto;
-  max-width: 944px;
+  max-width: 944px; /* Ancho máximo de la tabla */
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
@@ -110,7 +111,7 @@ footer {
   max-width: 600px;
   margin: 0 auto;
   position: relative;
-  text-align: center; /* Centrar contenido */
+  text-align: center; /* Centra el contenido dentro */
 }
 
 .btn-back {
@@ -149,17 +150,14 @@ footer {
   width: 220px;
 }
 
-.btn-search {
-  background-color: #F17121;
-  color: #fff;
-  border: none;
-  cursor: pointer;
-  padding: 10px 14px;
-  border-radius: 4px;
-  font-size: 0.9rem;
+/* Botón de búsqueda con tamaño de la tabla y el doble de altura */
+.big-search-button {
+  width: 944px;    /* Igual que la tabla */
+  height: 100px;   /* El doble de lo habitual (aprox) */
+  font-size: 1rem;
   display: flex;
+  justify-content: center;
   align-items: center;
-  gap: 5px;
 }
 
 /* Texto centrado en gris debajo del botón */
