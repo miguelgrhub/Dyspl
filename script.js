@@ -4,7 +4,6 @@ let currentPage = 1;           // Página actual
 const itemsPerPage = 15;       // Cantidad de registros por "página"
 let totalPages = 1;            // Se calculará al cargar
 let autoPageInterval = null;   // Intervalo para auto-cambiar de página cada 10s
-
 let inactivityTimer = null;    // Temporizador de inactividad en la pantalla de búsqueda
 
 // Referencias a elementos del DOM
@@ -119,7 +118,7 @@ backHomeBtn.addEventListener('click', () => {
 });
 
 // ==================== Ir a la pantalla de Búsqueda ====================
-function goTo() {
+function goToSearch() {
   homeContainer.style.display = 'none';
   searchContainer.style.display = 'block';
   searchResult.innerHTML = '';
@@ -127,8 +126,8 @@ function goTo() {
   
   // Mostrar la leyenda al entrar
   searchLegend.style.display = 'block';
-
-  // Detener la auto-paginación y cualquier temporizador de inactividad
+  
+  // Detener la auto-paginación y temporizadores
   if (autoPageInterval) {
     clearInterval(autoPageInterval);
     autoPageInterval = null;
@@ -146,7 +145,7 @@ function goToHome() {
   searchResult.innerHTML = '';
   searchInput.value = '';
   
-  // Detener inactividad
+  // Detener temporizadores de inactividad
   if (inactivityTimer) {
     clearTimeout(inactivityTimer);
     inactivityTimer = null;
@@ -158,7 +157,7 @@ function goToHome() {
 
 // ==================== Búsqueda por ID en la pantalla Search ====================
 searchButton.addEventListener('click', () => {
-  // Limpiar temporizador de inactividad previo
+  // Limpiar cualquier temporizador previo
   if (inactivityTimer) {
     clearTimeout(inactivityTimer);
   }
@@ -168,7 +167,7 @@ searchButton.addEventListener('click', () => {
   
   const query = searchInput.value.trim().toLowerCase();
   
-  // Si el ID está vacío, regresar directamente al Home
+  // Si el campo está vacío, regresar inmediatamente al Home
   if (!query) {
     goToHome();
     return;
@@ -176,7 +175,7 @@ searchButton.addEventListener('click', () => {
   
   const record = records.find(item => item.id.toLowerCase() === query);
   
-  // Iniciar temporizador de 20s para volver al Home en cualquier caso
+  // Iniciar temporizador de 20s para volver al Home
   inactivityTimer = setTimeout(() => {
     goToHome();
   }, 20000);
@@ -184,7 +183,7 @@ searchButton.addEventListener('click', () => {
   if (record) {
     searchResult.innerHTML = `
       <p><strong>We got you, here is your transfer</strong></p>
-      <table>
+      <table class="transfer-result-table">
         <thead>
           <tr>
             <th>ID Transfer</th>
