@@ -3,178 +3,34 @@
         "type": "JSON",
         "content": [
             {
-                "id": "9896SE623919",
-                "flight_number": "DL198",
-                "transfer_pickup_time": "11:45",
-                "airline": "Westjet"
+                "id": "38092SE485466",
+                "Flight": "DL1888",
+                "Time": "15:15:00",
+                "HotelName": "Royalton Splash Riviera Cancun"
             },
             {
-                "id": "9896SE610846",
-                "flight_number": "AA1192",
-                "transfer_pickup_time": "16:25",
-                "airline": "Westjet"
+                "id": "38092SE466020",
+                "Flight": "TBA000",
+                "Time": "15:00:00",
+                "HotelName": "Royalton Splash Riviera Cancun"
             },
             {
-                "id": "3984279",
-                "flight_number": "AA2175",
-                "transfer_pickup_time": "12:30",
-                "airline": "Sunwing"
+                "id": "142477102",
+                "Flight": "WG5536",
+                "Time": "18:00:00",
+                "HotelName": "Royalton Splash Riviera Cancun"
             },
             {
-                "id": "137402415",
-                "flight_number": "WG2572",
-                "transfer_pickup_time": "10:30",
-                "airline": "American Airlines"
+                "id": "38092SE485469",
+                "Flight": "DL1888",
+                "Time": "15:15:00",
+                "HotelName": "Royalton Splash Riviera Cancun"
             },
             {
-                "id": "9896SE621152",
-                "flight_number": "TS939",
-                "transfer_pickup_time": "19:30",
-                "airline": "Westjet"
-            },
-            {
-                "id": "9896SE679394",
-                "flight_number": "WN308",
-                "transfer_pickup_time": "08:30",
-                "airline": "Westjet"
-            },
-            {
-                "id": "9896SE635542",
-                "flight_number": "AA792",
-                "transfer_pickup_time": "14:20",
-                "airline": "American Airlines"
-            },
-            {
-                "id": "9896SE617717",
-                "flight_number": "TBA000",
-                "transfer_pickup_time": "15:00",
-                "airline": "American Airlines"
-            },
-            {
-                "id": "V3-38611-OPERATIONS-One Off",
-                "flight_number": "CFXXU",
-                "transfer_pickup_time": "10:30",
-                "airline": "Westjet"
-            },
-            {
-                "id": "V3-38611-OPERATIONS-One Off",
-                "flight_number": "CFXXU",
-                "transfer_pickup_time": "12:30",
-                "airline": "American Airlines"
-            },
-            {
-                "id": "9896SE635542",
-                "flight_number": "TBA000",
-                "transfer_pickup_time": "15:00",
-                "airline": "American Airlines"
-            },
-            {
-                "id": "138117933",
-                "flight_number": "WG5358",
-                "transfer_pickup_time": "14:35",
-                "airline": "American Airlines"
-            },
-            {
-                "id": "9896SE643245",
-                "flight_number": "TBA000",
-                "transfer_pickup_time": "15:00",
-                "airline": "American Airlines"
-            },
-            {
-                "id": "138117943",
-                "flight_number": "WG5358",
-                "transfer_pickup_time": "14:35",
-                "airline": "Sunwing"
-            },
-            {
-                "id": "137402415",
-                "flight_number": "WG2572",
-                "transfer_pickup_time": "17:40",
-                "airline": "American Airlines"
-            },
-            {
-                "id": "9896SE639704",
-                "flight_number": "AA1723",
-                "transfer_pickup_time": "16:18",
-                "airline": "Westjet"
-            },
-            {
-                "id": "136487195",
-                "flight_number": "WG2572",
-                "transfer_pickup_time": "10:30",
-                "airline": "American Airlines"
-            },
-            {
-                "id": "136487195",
-                "flight_number": "WG2572",
-                "transfer_pickup_time": "17:40",
-                "airline": "Sunwing"
-            },
-            {
-                "id": "138809273",
-                "flight_number": "WG5536",
-                "transfer_pickup_time": "20:22",
-                "airline": "American Airlines"
-            },
-            {
-                "id": "9896SE617720",
-                "flight_number": "TBA000",
-                "transfer_pickup_time": "15:00",
-                "airline": "Westjet"
-            },
-            {
-                "id": "141895392",
-                "flight_number": "WG5358",
-                "transfer_pickup_time": "14:35",
-                "airline": "Sunwing"
-            },
-            {
-                "id": "9896SE649543",
-                "flight_number": "TBA000",
-                "transfer_pickup_time": "15:00",
-                "airline": "American Airlines"
-            },
-            {
-                "id": "9896SE617718",
-                "flight_number": "TBA000",
-                "transfer_pickup_time": "15:00",
-                "airline": "Westjet"
-            },
-            {
-                "id": "138233675",
-                "flight_number": "WG5358",
-                "transfer_pickup_time": "14:35",
-                "airline": "Westjet"
-            },
-            {
-                "id": "140799042",
-                "flight_number": "WG2572",
-                "transfer_pickup_time": "17:40",
-                "airline": "Sunwing"
-            },
-            {
-                "id": "9896SE610927",
-                "flight_number": "UA1423",
-                "transfer_pickup_time": "14:18",
-                "airline": "American Airlines"
-            },
-            {
-                "id": "136487195",
-                "flight_number": "WG2572",
-                "transfer_pickup_time": "10:30",
-                "airline": "Sunwing"
-            },
-            {
-                "id": "138361683",
-                "flight_number": "WG5536",
-                "transfer_pickup_time": "20:22",
-                "airline": "American Airlines"
-            },
-            {
-                "id": "9896SE674554",
-                "flight_number": "SY578",
-                "transfer_pickup_time": "19:40",
-                "airline": "American Airlines"
+                "id": "38092SE465412",
+                "Flight": "#SY574",
+                "Time": "13:30:00",
+                "HotelName": "Royalton Splash Riviera Cancun"
             }
         ],
         "source": {
