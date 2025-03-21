@@ -181,6 +181,10 @@ searchButton.addEventListener('click', () => {
   }, 20000);
   
   if (record) {
+      // Cambiar estilos para el caso positivo
+    searchResult.style.background = '#FFF';
+    searchResult.style.border = '2px solid #D0DFDF';
+    searchResult.style.boxShadow = '0 2px 5px rgba(0,0,0,0.1)';
     searchResult.innerHTML = `
       <p><strong>We got you, here is your transfer</strong></p>
       <table>
@@ -203,7 +207,11 @@ searchButton.addEventListener('click', () => {
       </table>
     `;
   } else {
-    searchResult.innerHTML = `
+      // Restaurar estilos por defecto para el caso negativo
+      searchResult.style.background = 'transparent';
+      searchResult.style.border = 'none';
+      searchResult.style.boxShadow = 'none';
+      searchResult.innerHTML = `
       <p class="error-text">
         If you have any questions about your pickup transfer time, please reach out to your Royalton Excursion Rep at the hospitality desk. You can also contact us easily via chat on the NexusTours App or by calling +52 998 251 6559<br>
         We're here to assist you!
