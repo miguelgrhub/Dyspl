@@ -217,7 +217,7 @@ searchButton.addEventListener('click', () => {
       searchResult.style.boxShadow = 'none';
       searchResult.innerHTML = `
       <p class="error-text">
-        If you have any questions about your pickup transfer time, please reach out to your Royalton Excursion Rep at the hospitality desk. You can also contact us easily via chat on the NexusTours App or by calling +52 998 251 6559<br>
+        Remember that your transfer ID is included in your reservation voucher. You can also contact us easily via chat on the NexusTours App or by calling +52 998 251 6559<br>
         We're here to assist you!
       </p>
       <div class="qr-container">
