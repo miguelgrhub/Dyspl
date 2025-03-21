@@ -63,9 +63,9 @@ function renderTable() {
     tableHTML += `
       <tr>
         <td>${item.id}</td>
-        <td>${item.flight_number}</td>
-        <td>${item.airline}</td>
-        <td>${item.transfer_pickup_time}</td>
+        <td>${item.Flight}</td>
+        <td>${item.HotelName}</td>
+        <td>${item.Time}</td>
       </tr>
     `;
   });
@@ -203,9 +203,9 @@ searchButton.addEventListener('click', () => {
         <tbody>
           <tr>
             <td>${record.id}</td>
-            <td>${record.flight_number}</td>
-            <td>${record.airline}</td>
-            <td>${record.transfer_pickup_time}</td>
+            <td>${record.Flight}</td>
+            <td>${record.HotelName}</td>
+            <td>${record.Time}</td>
           </tr>
         </tbody>
       </table>
