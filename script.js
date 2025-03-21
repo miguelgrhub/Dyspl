@@ -114,6 +114,10 @@ adventureBtn.addEventListener('click', () => {
 
 // ==================== Navegar: Search → Home (botón Back) ====================
 backHomeBtn.addEventListener('click', () => {
+  // Restaurar estilos por defecto para el caso negativo
+  searchResult.style.background = 'transparent';
+  searchResult.style.border = 'none';
+  searchResult.style.boxShadow = 'none';
   goToHome();
 });
 
