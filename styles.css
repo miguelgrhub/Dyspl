@@ -32,7 +32,7 @@ body {
 
 /* Botón grande en Home */
 .big-home-button {
-  width: 500px;   /* Un poco menos ancho que antes */
+  width: 400px;   /* Un poco menos ancho que antes */
   height: 120px;  /* 120px de alto */
   font-size: 1.5rem; /* Texto tamaño 1.5rem */
   display: flex;
