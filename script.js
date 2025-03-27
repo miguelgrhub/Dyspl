@@ -1,9 +1,12 @@
 // ==================== Variables globales ====================
-let records = [];              // Aquí se guardan todos los registros del JSON
+let todaysRecords = [];        // Registros de today (data.json)
+let tomorrowsRecords = [];     // Registros de tomorrow (data_2.json)
+let currentDataset = "today";  // "today" o "tomorrow"
+let currentRecords = [];       // Conjunto de registros actual
 let currentPage = 1;           // Página actual
-const itemsPerPage = 15;       // Cantidad de registros por "página"
+const itemsPerPage = 15;       // Registros por "página"
 let totalPages = 1;            // Se calculará al cargar
-let autoPageInterval = null;   // Intervalo para auto-cambiar de página cada 10s
+let autoPageInterval = null;   // Intervalo para auto-cambiar página cada 10s
 let inactivityTimer = null;    // Temporizador de inactividad en la pantalla de búsqueda
 
 // Referencias a elementos del DOM
@@ -17,20 +20,42 @@ const searchInput = document.getElementById('search-input');
 const searchButton = document.getElementById('search-button');
 const searchResult = document.getElementById('search-result');
 const searchLegend = document.getElementById('search-legend');
+const mainTitle = document.getElementById('main-title');
 
-// ==================== Cargar data.json ====================
+// ==================== Cargar ambos JSON ====================
 window.addEventListener('DOMContentLoaded', async () => {
   try {
-    const response = await fetch('data.json');
-    const data = await response.json();
-    records = data.template.content || [];
-    totalPages = Math.ceil(records.length / itemsPerPage);
-    renderTable(); // Renderiza la tabla inicial
+    // Cargar data.json y data_2.json en paralelo
+    const [todayResp, tomorrowResp] = await Promise.all([
+      fetch('data.json'),
+      fetch('data_2.json')
+    ]);
+    const todayData = await todayResp.json();
+    const tomorrowData = await tomorrowResp.json();
+
+    todaysRecords = todayData.template.content || [];
+    tomorrowsRecords = tomorrowData.template.content || [];
+    
+    // Empezamos mostrando los registros de hoy
+    currentDataset = "today";
+    currentRecords = todaysRecords;
+    totalPages = Math.ceil(currentRecords.length / itemsPerPage);
+    updateTitle();
+    renderTable();
   } catch (error) {
-    console.error('Error al cargar data.json:', error);
+    console.error('Error al cargar los datos:', error);
     tableContainer.innerHTML = `<p style="color:red;text-align:center;">Error loading data.</p>`;
   }
 });
+
+// ==================== Actualizar título según dataset ====================
+function updateTitle() {
+  if (currentDataset === "today") {
+    mainTitle.innerText = "Today’s pick-up airport transfers";
+  } else {
+    mainTitle.innerText = "Tomorrow’s pick-up airport transfers";
+  }
+}
 
 // ==================== Renderizar tabla con paginación auto ====================
 function renderTable() {
@@ -40,10 +65,14 @@ function renderTable() {
     autoPageInterval = null;
   }
   
+  // Asegurarse de que currentRecords esté actualizado según el dataset actual
+  currentRecords = (currentDataset === "today") ? todaysRecords : tomorrowsRecords;
+  totalPages = Math.ceil(currentRecords.length / itemsPerPage);
+  
   // Calcular índices de la página actual
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
-  const pageRecords = records.slice(startIndex, endIndex);
+  const pageRecords = currentRecords.slice(startIndex, endIndex);
   
   // Construir tabla HTML
   let tableHTML = `
@@ -81,10 +110,9 @@ function renderTable() {
     pageInfoHTML = `<div class="auto-page-info">Page ${currentPage} of ${totalPages}</div>`;
   }
   
-  // Mostrar en el contenedor
   tableContainer.innerHTML = tableHTML + pageInfoHTML;
   
-  // Si hay más de una página, iniciar el auto-cambio cada 10s
+  // Si hay más de una página, iniciar auto-paginación
   if (totalPages > 1) {
     startAutoPagination();
   }
@@ -95,11 +123,13 @@ function startAutoPagination() {
   autoPageInterval = setInterval(() => {
     currentPage++;
     if (currentPage > totalPages) {
-      // Reiniciar a la primera página
+      // Cambiar al otro dataset y reiniciar la página
+      currentDataset = (currentDataset === "today") ? "tomorrow" : "today";
+      updateTitle();
       currentPage = 1;
     }
     renderTable();
-  }, 10000); // Cada 10 segundos
+  }, 10000);
 }
 
 // ==================== Navegar: Home → Search ====================
@@ -149,7 +179,6 @@ function goToHome() {
   searchResult.innerHTML = '';
   searchInput.value = '';
   
-  // Detener temporizadores de inactividad
   if (inactivityTimer) {
     clearTimeout(inactivityTimer);
     inactivityTimer = null;
@@ -166,7 +195,7 @@ searchButton.addEventListener('click', () => {
     clearTimeout(inactivityTimer);
   }
   
-  // Ocultar la leyenda cuando se hace clic en "Buscar"
+  // Ocultar la leyenda al hacer clic en "Search"
   searchLegend.style.display = 'none';
   
   const query = searchInput.value.trim().toLowerCase();
@@ -177,7 +206,11 @@ searchButton.addEventListener('click', () => {
     return;
   }
   
-  const record = records.find(item => item.id.toLowerCase() === query);
+  // Buscar en ambos datasets (today y tomorrow) para mayor flexibilidad
+  let record = todaysRecords.find(item => item.id.toLowerCase() === query);
+  if (!record) {
+    record = tomorrowsRecords.find(item => item.id.toLowerCase() === query);
+  }
   
   // Iniciar temporizador de 20s para volver al Home
   inactivityTimer = setTimeout(() => {
@@ -185,13 +218,9 @@ searchButton.addEventListener('click', () => {
   }, 20000);
   
   if (record) {
-      // Cambiar estilos para el caso positivo
-    searchResult.style.background = '#FFF';
-    searchResult.style.border = '2px solid #D0DFDF';
-    searchResult.style.boxShadow = '0 2px 5px rgba(0,0,0,0.1)';
     searchResult.innerHTML = `
       <p><strong>We got you, here is your transfer</strong></p>
-      <table>
+      <table class="transfer-result-table">
         <thead>
           <tr>
             <th>Booking No.</th>
@@ -211,13 +240,9 @@ searchButton.addEventListener('click', () => {
       </table>
     `;
   } else {
-      // Restaurar estilos por defecto para el caso negativo
-      searchResult.style.background = 'transparent';
-      searchResult.style.border = 'none';
-      searchResult.style.boxShadow = 'none';
-      searchResult.innerHTML = `
+    searchResult.innerHTML = `
       <p class="error-text">
-        Remember that your transfer ID is included in your reservation voucher. You can also contact us easily via chat on the NexusTours App or by calling +52 998 251 6559<br>
+        If you have any questions about your pickup transfer time, please reach out to your Royalton Excursion Rep at the hospitality desk. You can also contact us easily via chat on the NexusTours App or by calling +52 998 251 6559<br>
         We're here to assist you!
       </p>
       <div class="qr-container">
