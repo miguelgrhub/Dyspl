@@ -204,7 +204,7 @@ footer {
 }
 
 /* Tabla para el resultado de la búsqueda */
-.transfer-result-table {
+/*.transfer-result-table {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -217,7 +217,7 @@ footer {
   border: 2px solid #D0DFDF;
   border-radius: 20px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
+}*/
 
 .transfer-result-table th,
 .transfer-result-table td {
