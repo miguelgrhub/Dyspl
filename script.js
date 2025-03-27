@@ -148,6 +148,7 @@ backHomeBtn.addEventListener('click', () => {
   //searchResult.style.background = 'transparent';
   //searchResult.style.border = 'none';
   //searchResult.style.boxShadow = 'none';
+    searchResult.style.opacity = '0';
   goToHome();
 });
 
@@ -197,6 +198,7 @@ searchButton.addEventListener('click', () => {
   
   // Ocultar la leyenda al hacer clic en "Search"
   searchLegend.style.display = 'none';
+  searchResult.style.opacity = '1';
   
   const query = searchInput.value.trim().toLowerCase();
   
