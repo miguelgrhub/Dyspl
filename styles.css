@@ -82,9 +82,9 @@ footer {
   align-items: center;
   gap: 26px;
   padding: 20px;
-  border: 2px solid #D0DFDF;
+  border: 2px solid #2700fb;
   border-radius: 20px;
-  background: #FFF;
+  background: #2700fb;
   margin: 0 auto;
   max-width: 944px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
@@ -105,8 +105,8 @@ footer {
 }
 
 .table-container th {
-  background-color: #f9f9f9;
-  color: #F17121; /* Naranja */
+  background-color: #2700fb;
+  color: #FFF; /* Naranja */
   font-weight: bold;
 }
 
@@ -114,7 +114,7 @@ footer {
 .auto-page-info {
   text-align: center;
   width: 100%;
-  color: #666;
+  color: #FFF;
   font-size: 0.85rem;
 }
 
