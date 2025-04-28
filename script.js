@@ -221,7 +221,7 @@ searchButton.addEventListener('click', () => {
   
   if (record) {
     searchResult.innerHTML = `
-      <p><strong>We got you, here is your transfer</strong></p>
+      <p class="titulo_result"><strong>We got you, here is your transfer</strong></p>
       <table class="transfer-result-table">
         <thead>
           <tr>
