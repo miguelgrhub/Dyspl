@@ -260,9 +260,9 @@ footer {
   width: 100%;
   height: auto;
 }
-.logo_nexus_bdr {
-  width: 90%;
-  max-width: 944px;
+.titulo_result {
+  color: #FFF;
+  font-size: 1.2rem; 
 }
 
 /*.result {
