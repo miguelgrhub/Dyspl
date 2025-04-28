@@ -96,9 +96,15 @@ footer {
   border-collapse: collapse;
 }
 
-.table-container th,
+.table-container th {
+  padding: 5px 12px 25px 12px;
+  text-align: left;
+  border-bottom: 1px solid #ccc;
+  font-size: 1rem;
+  color: #FFF;
+}
 .table-container td {
-  padding: 18px 12px;
+  padding: 12px;
   text-align: left;
   border-bottom: 1px solid #ccc;
   font-size: 1rem;
