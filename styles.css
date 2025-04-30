@@ -82,9 +82,9 @@ footer {
   align-items: center;
   gap: 26px;
   padding: 20px;
-  border: 2px solid #2700fb;
+  border: 2px solid #000000;
   border-radius: 20px;
-  background: #2700fb;
+  background: #000000;
   margin: 0 auto;
   max-width: 944px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
@@ -112,7 +112,7 @@ footer {
 }
 
 .table-container th {
-  background-color: #2700fb;
+  background-color: #000000;
   color: #F17121; /* Naranja */
   font-weight: bold;
 }
@@ -235,7 +235,7 @@ footer {
 }
 
 .transfer-result-table th {
-  background-color: #2700fb;
+  background-color: #000000;
   color: #F17121;
   font-weight: bold;
   font-size: 1.2rem;
