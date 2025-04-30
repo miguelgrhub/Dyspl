@@ -51,9 +51,9 @@ window.addEventListener('DOMContentLoaded', async () => {
 // ==================== Actualizar título según dataset ====================
 function updateTitle() {
   if (currentDataset === "today") {
-    mainTitle.innerText = "Today’s pick-up airport transfers";
+    mainTitle.innerText = "TODAY’S PICK-UP AIRPORT TRANSFERS";
   } else {
-    mainTitle.innerText = "Tomorrow’s pick-up airport transfers";
+    mainTitle.innerText = "TOMORROW’S PICK-UP AIRPORT TRANSFERS";
   }
 }
 
