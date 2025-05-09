@@ -5,7 +5,6 @@
   padding: 0;
 }
 
-/* BODY GLOBAL */
 body {
   font-family: "DM Sans", sans-serif;
   background-color: #f7f7f7;
@@ -14,7 +13,6 @@ body {
   padding: 20px;
 }
 
-/* ENCABEZADO HOME y título principal */
 .home-container h1,
 .main-title {
   text-align: center;
@@ -22,7 +20,6 @@ body {
   color: #333;
 }
 
-/* Botones de la parte superior (Home) */
 .top-buttons {
   display: flex;
   justify-content: center;
@@ -30,7 +27,6 @@ body {
   margin-bottom: 20px;
 }
 
-/* Botón grande en Home */
 .big-home-button {
   width: 96.5%;
   height: 120px;
@@ -41,11 +37,6 @@ body {
   margin: 0 auto;
 }
 
-.big-home-button .icon {
-  font-size: 1.6rem;
-}
-
-/* Botones base */
 .btn-primary,
 .btn-secondary {
   border: none;
@@ -68,7 +59,6 @@ body {
   color: #333;
 }
 
-/* Pie de página */
 footer {
   text-align: center;
   margin-top: 30px;
@@ -91,7 +81,6 @@ footer {
   text-transform: uppercase;
 }
 
-/* Estilo de la tabla principal */
 .main-table-container table {
   width: 100%;
   border-collapse: collapse;
@@ -114,7 +103,6 @@ footer {
   color: #fff;
 }
 
-/* Indicador de página */
 .auto-page-info {
   text-align: center;
   width: 100%;
@@ -122,57 +110,49 @@ footer {
   font-size: 0.85rem;
 }
 
-/* Contenedor para la tabla de resultados de búsqueda */
-.search-result-container {
-  padding: 20px;
-  margin: 20px auto;
-  border: 2px solid #D0DFDF;
-  border-radius: 20px;
-  background: #fff;
+/* Base para el contenedor de resultados */
+.search-result {
   max-width: 944px;
+  margin: 20px auto;
+  border-radius: 20px;
+  padding: 20px;
 }
 
-/* Estilo de la tabla de resultados */
-.search-result-container .transfer-result-table {
+/* Resultado exitoso */
+.search-result.search-result-container {
+  border: 2px solid #D0DFDF;
+  background: #fff;
+}
+
+.search-result.search-result-container table {
   width: 100%;
   border-collapse: collapse;
 }
 
-.search-result-container .transfer-result-table th,
-.search-result-container .transfer-result-table td {
+.search-result.search-result-container th,
+.search-result.search-result-container td {
   padding: 12px;
   text-align: left;
   border-bottom: 1px solid #ccc;
 }
 
-.search-result-container .transfer-result-table th {
+.search-result.search-result-container th {
   background-color: #000;
   color: #F17121;
   font-weight: bold;
   font-size: 1.2rem;
 }
 
-.search-result-container .transfer-result-table td {
+.search-result.search-result-container td {
   font-size: 1rem;
   color: #333;
 }
 
 /* Contenedor de error */
-.error-container {
-  padding: 20px;
-  margin: 20px auto;
+.search-result.error-container {
   border: 2px dashed #F17121;
-  border-radius: 20px;
   background: #FFE6E6;
-  max-width: 944px;
   text-align: center;
-}
-
-/* Título en el resultado de búsqueda */
-.titulo_result {
-  font-size: 1.2rem;
-  margin-bottom: 10px;
-  color: #333;
 }
 
 /* Leyenda debajo del botón en SEARCH */
@@ -185,14 +165,6 @@ footer {
   line-height: 1.4;
 }
 
-/* QR container */
-.qr-container img {
-  max-width: 400px;
-  width: 100%;
-  height: auto;
-}
-
-/* Clases auxiliares */
 .hide {
   display: none !important;
 }
