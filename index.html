@@ -14,6 +14,7 @@
   <!-- CONTENEDOR HOME: Tabla con todos los registros -->
   <div id="home-container" class="home-container">
     <div class="top-buttons">
+      <!-- Botón grande: 920px de ancho x 120px de alto -->
       <button id="search-transfer-btn" class="btn-secondary big-home-button">
         <span class="icon">🔎</span> Search my booking number
       </button>
@@ -22,10 +23,11 @@
       </button>
     </div>
 
+    <!-- Título en Home -->
     <h2 id="main-title" class="main-title">Today’s pick-up airport transfers</h2>
 
     <!-- Aquí se inyecta la tabla y la paginación (auto) vía JavaScript -->
-    <div id="main-table-container" class="main-table-container"></div>
+    <div id="table-container" class="table-container"></div>
 
     <footer>
       <img class="logo_nexus_bdr" src="https://miguelgrhub.github.io/Dyspl/Logo_Dysp.png" alt="Logo Nexus">
@@ -44,6 +46,7 @@
         placeholder="Enter your booking number"
         aria-label="Search by booking number"
       />
+      <!-- Botón de búsqueda tamaño normal -->
       <button id="search-button" class="btn-search">
         <span class="icon">🔍</span>
       </button>
@@ -51,12 +54,11 @@
 
     <!-- Leyenda debajo del botón (visible al inicio) -->
     <p id="search-legend" class="search-legend">
-      If you have any questions about your pickup transfer time, please reach out to your Royalton Excursion Rep at the hospitality desk. You can also contact us easily via chat on the NexusTours App or by calling +52 998 251 6559.<br>
-      We're here to assist you!
+      If you have any questions about your pickup transfer time, please reach out to your Royalton Excursion Rep at the hospitality desk. You can also contact us easily via chat on the NexusTours App or by calling +52 998 251 6559
+We're here to assist you!
     </p>
 
-    <!-- Contenedor dinámico para resultados de búsqueda -->
-    <div id="search-result" class="search-result"></div>
+    <div id="search-result" class="table-container result"></div>
   </div>
 
   <script src="script.js"></script>
