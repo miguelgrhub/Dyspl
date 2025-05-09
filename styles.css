@@ -227,11 +227,12 @@ footer {
   text-align: left;
   border-bottom: 1px solid #ccc;
   font-size: 0.9rem;
+  text-transform: uppercase;
 }
 
 .transfer-result-table th {
   background-color: #000000;
-  color: #F17121;
+  color: #FFF;
   font-weight: bold;
   font-size: 1.2rem;
 }
