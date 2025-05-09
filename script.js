@@ -221,7 +221,7 @@ searchButton.addEventListener('click', () => {
   
   if (record) {
     searchResult.innerHTML = `
-      <p class="titulo_result"><strong>We got you, here is your transfer</strong></p>
+      <div class = "bktableqrresultados"><p class="titulo_result"><strong>We got you, here is your transfer</strong></p>
       <table class="transfer-result-table">
         <thead>
           <tr>
@@ -239,7 +239,7 @@ searchButton.addEventListener('click', () => {
             <td>${record.Time}</td>
           </tr>
         </tbody>
-      </table>
+      </table></div>
     `;
   } else {
     searchResult.innerHTML = `
