@@ -243,13 +243,13 @@ searchButton.addEventListener('click', () => {
     `;
   } else {
     searchResult.innerHTML = `
-      <p class="error-text">
+      <div class = "bktableqr"><p class="error-text">
         If you have any questions about your pickup transfer time, please reach out to your Royalton Excursion Rep at the hospitality desk. You can also contact us easily via chat on the NexusTours App or by calling +52 998 251 6559<br>
         We're here to assist you!
       </p>
       <div class="qr-container">
         <img src="https://miguelgrhub.github.io/Dyspl/Qr.jpeg" alt="QR Code">
-      </div>
+      </div></div>
     `;
   }
 });
