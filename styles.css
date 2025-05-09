@@ -270,6 +270,11 @@ footer {
   color: #FFF;
   font-size: 1.2rem; 
 }
+.bktable {
+  background-color: #FFF;
+  width: 100%;
+}
+
 
 /*.result {
   background: transparent;
