@@ -76,7 +76,7 @@ function renderTable() {
   
   // Construir tabla HTML
   let tableHTML = `
-    <table>
+    <div class = "bktable"><table>
       <thead>
         <tr>
           <th>Booking No.</th>
@@ -101,7 +101,7 @@ function renderTable() {
   
   tableHTML += `
       </tbody>
-    </table>
+    </table></div>
   `;
   
   // Información de la página actual
