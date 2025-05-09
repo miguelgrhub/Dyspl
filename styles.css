@@ -264,6 +264,7 @@ footer {
 }
 .logo_nexus_bdr {
   width: 100%;
+  max-width: 944px;
 }
 .titulo_result {
   color: #FFF;
