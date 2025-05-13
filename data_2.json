@@ -21,9 +21,15 @@
         "HotelName": "CONTACT YOUR ROYALTON EXPERIENCE REP"
       },
       {
+        "id": "43JVF4",
+        "Flight": "TBA004",
+        "Time": "02:45",
+        "HotelName": "Royalton CHIC Suites Cancun"
+      },
+      {
         "id": "9890SE590920",
         "Flight": "TBA000",
-        "Time": "15:00",
+        "Time": "00:00",
         "HotelName": "CONTACT YOUR ROYALTON EXPERIENCE REP"
       },
       {
@@ -89,7 +95,7 @@
       {
         "id": "9890SF662342",
         "Flight": "TBA000",
-        "Time": "15:00",
+        "Time": "00:00",
         "HotelName": "CONTACT YOUR ROYALTON EXPERIENCE REP"
       },
       {
