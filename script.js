@@ -24,44 +24,31 @@ const mainTitle          = document.getElementById('main-title');
 
 // ==================== Cargar ambos JSON ====================
 window.addEventListener('DOMContentLoaded', async () => {
-  console.log('📌 DOMContentLoaded: empezando carga de datos');
   try {
-    console.log('🔄 Haciendo fetch de data.json y data_2.json en paralelo');
     const [todayResp, tomorrowResp] = await Promise.all([
       fetch('data.json'),
       fetch('data_2.json')
     ]);
+    if (!todayResp.ok)    throw new Error(`Fetch failed for data.json: ${todayResp.status}`);
+    if (!tomorrowResp.ok) throw new Error(`Fetch failed for data_2.json: ${tomorrowResp.status}`);
 
-    if (!todayResp.ok)    throw new Error(`Fetch failed for data.json: ${todayResp.status} ${todayResp.statusText}`);
-    if (!tomorrowResp.ok) throw new Error(`Fetch failed for data_2.json: ${tomorrowResp.status} ${tomorrowResp.statusText}`);
-
-    console.log('✅ Ambos fetch OK, parseando JSON…');
     const todayData    = await todayResp.json();
     const tomorrowData = await tomorrowResp.json();
 
-    // *** CORRECCIÓN: Asignamos a las variables globales en lugar de redeclarar ***
-    todaysRecords    = todayData.template?.content || [];
-    tomorrowsRecords = tomorrowData.template?.content || [];
+    // *** CORRECCIÓN: usamos "templates" en lugar de "template" ***
+    todaysRecords    = todayData.templates?.content || [];
+    tomorrowsRecords = tomorrowData.templates?.content || [];
 
-    console.log('todayData.template:', todayData.template);
-    console.log('Número de registros de hoy:', todaysRecords.length);
-    console.log('tomorrowData.template:', tomorrowData.template);
-    console.log('Número de registros de mañana:', tomorrowsRecords.length);
-
-    // Empezamos mostrando los registros de hoy
+    // Inicializamos vista
     currentDataset = "today";
     currentRecords = todaysRecords;
     totalPages     = Math.ceil(currentRecords.length / itemsPerPage);
-    console.log(`Total pages calculadas: ${totalPages}`);
 
     updateTitle();
     renderTable();
   } catch (error) {
-    console.error('🔥 Error al cargar o procesar los datos:', error);
-    console.error(error.stack);
-    if (tableContainer) {
-      tableContainer.innerHTML = `<p style="color:red;text-align:center;">Error loading data.</p>`;
-    }
+    console.error('Error loading data:', error);
+    tableContainer.innerHTML = `<p style="color:red;text-align:center;">Error loading data.</p>`;
   }
 });
 
@@ -72,21 +59,20 @@ function updateTitle() {
     : "TOMORROW’S PICK-UP AIRPORT TRANSFERS";
 }
 
-// ==================== Renderizar tabla con paginación auto ====================
+// ==================== Renderizar tabla con paginación automática ====================
 function renderTable() {
   if (autoPageInterval) {
     clearInterval(autoPageInterval);
     autoPageInterval = null;
   }
 
-  currentRecords = (currentDataset === "today") ? todaysRecords : tomorrowsRecords;
+  currentRecords = currentDataset === "today" ? todaysRecords : tomorrowsRecords;
   totalPages     = Math.ceil(currentRecords.length / itemsPerPage);
 
   const startIndex  = (currentPage - 1) * itemsPerPage;
-  const endIndex    = startIndex + itemsPerPage;
-  const pageRecords = currentRecords.slice(startIndex, endIndex);
+  const pageRecords = currentRecords.slice(startIndex, startIndex + itemsPerPage);
 
-  let tableHTML = `
+  let html = `
     <div class="bktable">
       <table>
         <thead>
@@ -100,7 +86,7 @@ function renderTable() {
         <tbody>
   `;
   pageRecords.forEach(item => {
-    tableHTML += `
+    html += `
       <tr>
         <td>${item.id}</td>
         <td>${item.Flight}</td>
@@ -109,22 +95,18 @@ function renderTable() {
       </tr>
     `;
   });
-  tableHTML += `
+  html += `
         </tbody>
       </table>
     </div>
   `;
 
-  let pageInfoHTML = '';
   if (totalPages > 1) {
-    pageInfoHTML = `<div class="auto-page-info">Page ${currentPage} of ${totalPages}</div>`;
-  }
-
-  tableContainer.innerHTML = tableHTML + pageInfoHTML;
-
-  if (totalPages > 1) {
+    html += `<div class="auto-page-info">Page ${currentPage} of ${totalPages}</div>`;
     startAutoPagination();
   }
+
+  tableContainer.innerHTML = html;
 }
 
 // ==================== Auto-paginación cada 10 segundos ====================
@@ -132,7 +114,7 @@ function startAutoPagination() {
   autoPageInterval = setInterval(() => {
     currentPage++;
     if (currentPage > totalPages) {
-      currentDataset = (currentDataset === "today") ? "tomorrow" : "today";
+      currentDataset = currentDataset === "today" ? "tomorrow" : "today";
       updateTitle();
       currentPage = 1;
     }
@@ -156,8 +138,8 @@ function goToSearch() {
   searchResult.innerHTML        = '';
   searchInput.value             = '';
   searchLegend.style.display    = 'block';
-  if (autoPageInterval) clearInterval(autoPageInterval);
-  if (inactivityTimer) clearTimeout(inactivityTimer);
+  clearInterval(autoPageInterval);
+  clearTimeout(inactivityTimer);
 }
 
 function goToHome() {
@@ -165,24 +147,21 @@ function goToHome() {
   homeContainer.style.display   = 'block';
   searchResult.innerHTML        = '';
   searchInput.value             = '';
-  if (inactivityTimer) clearTimeout(inactivityTimer);
+  clearTimeout(inactivityTimer);
   currentPage = 1;
   renderTable();
 }
 
 searchButton.addEventListener('click', () => {
-  if (inactivityTimer) clearTimeout(inactivityTimer);
-  searchLegend.style.display    = 'none';
-  searchResult.style.opacity    = '1';
+  clearTimeout(inactivityTimer);
+  searchLegend.style.display = 'none';
+  searchResult.style.opacity = '1';
 
   const query = searchInput.value.trim().toLowerCase();
-  if (!query) {
-    goToHome();
-    return;
-  }
+  if (!query) return goToHome();
 
-  let record = todaysRecords.find(item => item.id.toLowerCase() === query)
-            || tomorrowsRecords.find(item => item.id.toLowerCase() === query);
+  const record = todaysRecords.find(r => r.id.toLowerCase() === query)
+              || tomorrowsRecords.find(r => r.id.toLowerCase() === query);
 
   inactivityTimer = setTimeout(goToHome, 20000);
 
