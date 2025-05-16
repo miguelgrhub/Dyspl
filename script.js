@@ -24,29 +24,50 @@ const mainTitle = document.getElementById('main-title');
 
 // ==================== Cargar ambos JSON ====================
 window.addEventListener('DOMContentLoaded', async () => {
+  console.log('📌 DOMContentLoaded: empezando carga de datos');
   try {
-    // Cargar data.json y data_2.json en paralelo
+    console.log('🔄 Haciendo fetch de data.json y data_2.json en paralelo');
     const [todayResp, tomorrowResp] = await Promise.all([
       fetch('data.json'),
       fetch('data_2.json')
     ]);
+
+    console.log('todayResp:', todayResp);
+    console.log('tomorrowResp:', tomorrowResp);
+    if (!todayResp.ok) throw new Error(`Fetch failed for data.json: ${todayResp.status} ${todayResp.statusText}`);
+    if (!tomorrowResp.ok) throw new Error(`Fetch failed for data_2.json: ${tomorrowResp.status} ${tomorrowResp.statusText}`);
+
+    console.log('✅ Ambos fetch OK, parseando JSON…');
     const todayData = await todayResp.json();
     const tomorrowData = await tomorrowResp.json();
 
-    todaysRecords = todayData.template.content || [];
-    tomorrowsRecords = tomorrowData.template.content || [];
-    
+    console.log('todayData:', todayData);
+    console.log('tomorrowData:', tomorrowData);
+
+    const todaysRecords = todayData.template?.content || [];
+    const tomorrowsRecords = tomorrowData.template?.content || [];
+
+    console.log('Número de registros de hoy:', todaysRecords.length);
+    console.log('Número de registros de mañana:', tomorrowsRecords.length);
+
     // Empezamos mostrando los registros de hoy
     currentDataset = "today";
     currentRecords = todaysRecords;
     totalPages = Math.ceil(currentRecords.length / itemsPerPage);
+    console.log(`Total pages calculadas: ${totalPages}`);
+
     updateTitle();
     renderTable();
   } catch (error) {
-    console.error('Error al cargar los datos:', error);
-    tableContainer.innerHTML = `<p style="color:red;text-align:center;">Error loading data.</p>`;
+    console.error('🔥 Error al cargar o procesar los datos:', error);
+    console.error(error.stack);
+    const tableContainer = document.getElementById('table-container'); // asegúrate de que este ID exista
+    if (tableContainer) {
+      tableContainer.innerHTML = `<p style="color:red;text-align:center;">Error loading data.</p>`;
+    }
   }
 });
+
 
 // ==================== Actualizar título según dataset ====================
 function updateTitle() {
