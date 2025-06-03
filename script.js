@@ -35,7 +35,7 @@ window.addEventListener('DOMContentLoaded', async () => {
     const todayData    = await todayResp.json();
     const tomorrowData = await tomorrowResp.json();
 
-    // *** CORRECCIÓN: usamos "templates" en lugar de "template" ***
+    // *** USAMOS "templates" EN LUGAR DE "template" ***
     todaysRecords    = todayData.templates?.content || [];
     tomorrowsRecords = tomorrowData.templates?.content || [];
 
@@ -91,7 +91,7 @@ function renderTable() {
         <td>${item.id}</td>
         <td>${item.Flight}</td>
         <td>${item.HotelName}</td>
-        <td>${item.Time}</td>
+        <td>${item.PickupTime}</td>  <!-- Antes era item.Time -->
       </tr>
     `;
   });
@@ -183,7 +183,7 @@ searchButton.addEventListener('click', () => {
               <td>${record.id}</td>
               <td>${record.Flight}</td>
               <td>${record.HotelName}</td>
-              <td>${record.Time}</td>
+              <td>${record.PickupTime}</td>  <!-- Antes era record.Time -->
             </tr>
           </tbody>
         </table>
