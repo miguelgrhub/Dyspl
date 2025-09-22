@@ -38,7 +38,7 @@
         "id": "145820273",
         "Flight": "WS2773",
         "PickupDate": "2025-09-22",
-        "PickupTime": "06:05",
+        "PickupTime": "05:15",
         "HotelName": "Royalton CHIC Suites Cancun",
         "HotelNumber": 11610
       },
@@ -63,6 +63,14 @@
         "Flight": "TBA000",
         "PickupDate": "2025-09-22",
         "PickupTime": "⚠️",
+        "HotelName": "Royalton CHIC Suites Cancun",
+        "HotelNumber": 11610
+      },
+      {
+        "id": "3CWPR4",
+        "Flight": "UA1053",
+        "PickupDate": "2025-09-22",
+        "PickupTime": "13:00",
         "HotelName": "Royalton CHIC Suites Cancun",
         "HotelNumber": 11610
       },
@@ -244,9 +252,9 @@
       },
       {
         "id": "4461087",
-        "Flight": "UA1694",
-        "PickupDate": "2025-09-22",
-        "PickupTime": "07:30",
+        "Flight": "UA1196",
+        "PickupDate": "2025-09-23",
+        "PickupTime": "08:15",
         "HotelName": "Royalton CHIC Suites Cancun",
         "HotelNumber": 11610
       },
